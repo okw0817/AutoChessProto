@@ -65,15 +65,11 @@ public class WorldManager : ManagerBase<WorldManager>, IState<WorldState>
                 break;
             case WorldState.Main:
                 {
-                    var command = new UIPageCommand(UIPageString.Main, true);
-                    command.SetData(UIDataType.Title.ToString(), "Main Page");
-                    command.SetData(UIDataType.Content.ToString(), "Main Content");
-                    command.SetData(UIDataType.Data.ToString(), 1000);
-                    command.SetCallback(UIDataType.Callback.ToString(), () => print("Main Start"));
+                    var command = new SceneCommand(SceneName.Main, true);
                     command.Excute();
 
-                    var command2 = new UIPageCommand(UIPageString.Login, false);
-                    command2.Excute();
+                    //var command2 = new UIPageCommand(UIPageString.Login, false);
+                    //command2.Excute();
                 }
                 break;
         }
