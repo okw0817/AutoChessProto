@@ -18,6 +18,9 @@ public class UIPage_Synergy : MonoBehaviour
     #endregion
 
     #region Methods : Public
-    public void 
+    public void test()
+    {
+
+    }
     #endregion
 }

@@ -9,8 +9,8 @@ public class UIManager : ManagerBase<UIManager>, IReceiver, IObserver<Command>
     #region Methods : Override
     public override void Init()
     {
-        CommandManager.Instance.AddObserver(this); //CommandManager에 Observer로 등록
         reciverType = ReciverType.UIManager;
+        CommandManager.Instance.AddObserver(this); //CommandManager에 Observer로 등록
 
         base.Init();
     }

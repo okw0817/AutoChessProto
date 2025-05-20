@@ -18,11 +18,15 @@ public class CommandManager : ManagerBase<CommandManager>, ISubject<IReceiver>
     {
         foreach(var receiver in observers)
         {
-            if(receiver is IObserver<Command>)
+            if (receiver.GetReciverType() == command.reciverType)
             {
-                if (receiver.GetReciverType() == command.reciverType)
+                if (receiver is IObserver<Command>)
                 {
                     (receiver as IObserver<Command>).Notify(command);
+                }
+                else if(receiver is IReceiver)
+                {
+                    receiver.Receive(command);
                 }
             }
         }
