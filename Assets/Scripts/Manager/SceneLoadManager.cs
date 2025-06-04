@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cysharp.Threading.Tasks;
+using System;
 
 public class SceneLoadManager : ManagerBase<SceneLoadManager>, IReceiver
 {
     #region Members : Private
     private ReciverType reciverType;
     private string prevSceneName;
+    private Action callback;
     #endregion
 
     #region Methods : Override
@@ -28,6 +30,12 @@ public class SceneLoadManager : ManagerBase<SceneLoadManager>, IReceiver
     public async void Receive(Command command)
     {
         var sceneCommand = command as SceneCommand;
+
+        if(sceneCommand.GetCallbacks().ContainsKey(CommandCallbackString.Callback.ToString()))
+        {
+            callback = sceneCommand.GetCallbacks()[CommandCallbackString.Callback.ToString()];
+        }
+
         await LoadScene(sceneCommand.Id, sceneCommand.isAddictive);
     }
     #endregion
@@ -39,6 +47,10 @@ public class SceneLoadManager : ManagerBase<SceneLoadManager>, IReceiver
         await SceneManager.LoadSceneAsync(sceneName + "Scene", mode);
         await SceneManager.UnloadSceneAsync(prevSceneName);
         prevSceneName = sceneName;
+
+        if (callback != null) callback.Invoke();
+
+        callback = null;
     }
     #endregion
 }

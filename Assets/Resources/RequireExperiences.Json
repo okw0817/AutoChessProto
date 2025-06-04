@@ -1,0 +1,45 @@
+{
+    "requireExperiences": [
+        {
+            "level" : 1,
+            "requiringAmount" : 1
+
+        },
+        {
+            "level" : 2,
+            "requiringAmount" : 2
+
+        },
+        {
+            "level" : 3,
+            "requiringAmount" : 4
+
+        },
+        {
+            "level" : 4,
+            "requiringAmount" : 8
+
+        },
+        {
+            "level" : 5,
+            "requiringAmount" : 12
+
+        },
+        {
+            "level" : 6,
+            "requiringAmount" : 24
+
+        },
+        {
+            "level" : 7,
+            "requiringAmount" : 30
+
+        },
+        {
+            "level" : 8,
+            "requiringAmount" : 36
+
+        }
+     ]
+
+}

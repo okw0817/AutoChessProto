@@ -66,10 +66,22 @@ public class WorldManager : ManagerBase<WorldManager>, IState<WorldState>
             case WorldState.Main:
                 {
                     var command = new SceneCommand(SceneName.Main, true);
-                    command.Excute();
+                    command.SetCallback(CommandCallbackString.Callback.ToString(), () =>
+                    {
+                        if(AutoChessMaster.Instance != null)
+                        {
+                            var chessMaster = AutoChessMaster.Instance;
+                            var probabilities = chessMaster.GetProbabilityLevel(chessMaster.CurLevel);
+                            var list = chessMaster.GetStoreList(probabilities);
 
-                    //var command2 = new UIPageCommand(UIPageString.Login, false);
-                    //command2.Excute();
+                            var command = new UIPageCommand(UIPageString.Store, true);
+                            command.SetData(CommandDataString.HeroList.ToString(), list);
+                            command.Excute();
+
+                            AutoChessMaster.Instance.CurLevel = 1;
+                        }
+                    });
+                    command.Excute();
                 }
                 break;
         }
