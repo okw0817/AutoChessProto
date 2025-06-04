@@ -35,7 +35,7 @@ public class HorizontalTileContainer : MonoBehaviour, IInitializer
     {
         foreach(var tile in tiles)
         {
-            if (tile.HasHero)
+            if (!tile.HasHero)
                 return tile;
         }
 

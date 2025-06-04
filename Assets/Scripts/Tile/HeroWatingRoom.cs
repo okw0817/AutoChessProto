@@ -30,6 +30,7 @@ public class HeroWatingRoom : MonoBehaviour, IInitializer
         else
         {
             hero.transform.position = tile.transform.position;
+            tile.HasHero = true;
             return true;
         }
     }

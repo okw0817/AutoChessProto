@@ -5,7 +5,7 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     #region Members : Private
-    private bool hasHero = true;
+    private bool hasHero = false;
     #endregion
 
     #region Members : Property

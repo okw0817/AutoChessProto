@@ -19,9 +19,35 @@ public class UI_Hero_Icon : MonoBehaviour, IPointerClickHandler
 
     [SerializeField]
     private List<UI_Synerge> synergies;
+
+    [SerializeField]
+    private List<GameObject> activeObjects;
+
+    private bool isSale = false;
+    #endregion
+
+    #region Members : Property
+    public bool IsSale { 
+        get => isSale; 
+        set
+        {
+            if(isSale != value)
+            {
+                isSale = value;
+                ActiveIcon(!isSale);
+            }
+        }
+    }
     #endregion
 
     #region Methods : Public
+    public void ActiveIcon(bool value)
+    {
+        foreach(var obj in activeObjects)
+        {
+            obj.gameObject.SetActive(value);
+        }
+    }
     public void InActiveSynergies()
     {
         foreach(var synerge in synergies)

@@ -5,7 +5,10 @@ using Cysharp.Threading.Tasks;
 public class AutoChessMaster : SigletoneBase<AutoChessMaster>
 {
     #region Members : Private
-    private TileController tileController;
+    [SerializeField]
+    private PrefabPool prefabPool;
+
+private TileController tileController;
     private HeroWatingRoom heroWatingRoom;
 
     private Dictionary<int, List<HeroData>> heroDic = new Dictionary<int, List<HeroData>>();
@@ -164,11 +167,19 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
 
     public async void AddHeroPrefab(string heroName, UI_Hero_Icon uI_Hero_Icon)
     {
-        var heroObject = await ResourceManager.Instance.GetHeroRasources(heroName);
-
-        if (heroWatingRoom.AddHero(heroObject))
+        GameObject obj = prefabPool.PopPool(heroName);
+        if (obj == null)
         {
-            uI_Hero_Icon.gameObject.SetActive(false);
+            obj = await ResourceManager.Instance.GetHeroRasources(heroName);
+        }
+
+        if (heroWatingRoom.AddHero(obj))
+        {
+            uI_Hero_Icon.IsSale = true;
+        }
+        else
+        {
+            prefabPool.PushPool(heroName, obj);
         }
 
     }

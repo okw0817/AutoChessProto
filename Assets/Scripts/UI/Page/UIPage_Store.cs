@@ -113,6 +113,7 @@ public class UIPage_Store : UIPage
         foreach(var uiIcon in heroIcons)
         {
             uiIcon.InActiveSynergies();
+            uiIcon.IsSale = false; 
         }
 
         for(int i=0; i< heroList.Count; ++i)
