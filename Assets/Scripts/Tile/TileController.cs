@@ -5,13 +5,13 @@ using UnityEngine;
 public class TileController : MonoBehaviour
 {
     #region Members
-    private List<HolrizontalTileContainer> allTiles = new List<HolrizontalTileContainer>();
+    private List<HorizontalTileContainer> allTiles = new List<HorizontalTileContainer>();
     #endregion
 
     #region Methods : Mono
     void Start()
     {
-        var holizontalTileContainer = GetComponentsInChildren<HolrizontalTileContainer>();
+        var holizontalTileContainer = GetComponentsInChildren<HorizontalTileContainer>();
 
         foreach(var container in holizontalTileContainer)
         {
@@ -19,7 +19,7 @@ public class TileController : MonoBehaviour
             allTiles.Add(container);
         }
 
-        allTiles.Sort((HolrizontalTileContainer containerA, HolrizontalTileContainer containerB) => 
+        allTiles.Sort((HorizontalTileContainer containerA, HorizontalTileContainer containerB) => 
         {
             return containerA.transform.position.z > containerB.transform.position.z ? 1 : -1;
         });

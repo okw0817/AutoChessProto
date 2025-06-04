@@ -1,0 +1,53 @@
+{
+    "levels": [
+        {
+            "one" : 100,
+            "two" : 0,
+	        "three" : 0,
+            "four" : 0
+        },
+        {
+            "one" : 80,
+            "two" : 20,
+	        "three" : 0,
+            "four" : 0
+        },
+        {
+            "one" : 60,
+            "two" : 30,
+	        "three" : 10,
+            "four" : 0
+        },
+        {
+            "one" : 40,
+            "two" : 40,
+	        "three" : 20,
+            "four" : 0
+        },
+        {
+            "one" : 20,
+            "two" : 50,
+	        "three" : 30,
+            "four" : 0
+        },
+        {
+            "one" : 15,
+            "two" : 40,
+	        "three" : 40,
+            "four" : 5
+        },
+        {
+            "one" : 10,
+            "two" : 50,
+	        "three" : 40,
+            "four" : 10
+        },
+        {
+            "one" : 10,
+            "two" : 40,
+	        "three" : 40,
+            "four" : 20
+        }
+     ]
+
+}

@@ -1,0 +1,214 @@
+{
+    "heroes": [
+        {
+            "name" : "TT_Swordman",
+            "icon" : "TT_Swrodman_Icon",
+	        "level" : 1,
+            "synergies" :
+            [
+                "Warrior",
+                "Shielder"
+            ]
+        },
+        {
+            "name" : "TT_Mage",
+            "icon" : "TT_Mage_Icon",
+	        "level" : 1,
+            "synergies" :
+            [
+                "Magician",
+                "ClothArmor"
+            ]
+        },
+        {
+            "name" : "TT_Peasant",
+            "icon" : "TT_Peasant_Icon",
+	        "level" : 1,
+            "synergies" :
+            [
+                "Warrior",
+                "ClothArmor"
+            ]
+        },
+        {
+            "name" : "TT_Archer",
+            "icon" : "TT_Archer_Icon",
+	        "level" : 1,
+            "synergies" :
+            [
+                "Archer",
+                "ClothArmor"
+            ]
+        },
+        {
+            "name" : "H1_Spearman",
+            "icon" : "H1_Spearman_Icon",
+	        "level" : 1,
+            "synergies" :
+            [
+                "Warrior",
+                "Shielder"
+            ]
+        },
+        {
+            "name" : "TT_Priest",
+            "icon" : "TT_Priest_Icon",
+	        "level" : 1,
+            "synergies" :
+            [
+                "Healer",
+                "ClothArmor"
+            ]
+        },
+        {
+            "name" : "TT_Crossbowman",
+            "icon" : "TT_Crossbowman_Icon",
+	        "level" : 2,
+            "synergies" :
+            [
+                "Archer",
+                "ClothArmor"
+            ]
+        },
+        {
+            "name" : "TT_Heavy_Infantry",
+            "icon" : "TT_Heavy_Infantry_Icon",
+	        "level" : 2,
+            "synergies" :
+            [
+                "Warrior",
+                "HeavyArmor"
+            ]
+        },
+        {
+            "name" : "TT_HeavySwordman",
+            "icon" : "TT_HeavySwordman_Icon",
+	        "level" : 2,
+            "synergies" :
+            [
+                "Warrior",
+                "Shielder"
+            ]
+        },
+        {
+            "name" : "TT_Paladin",
+            "icon" : "TT_Paladin_Icon",
+	        "level" : 2,
+            "synergies" :
+            [
+                "Warrior",
+                "HeavyArmor",
+                "Healer"
+            ]
+        },
+        {
+            "name" : "H2_Halberdier",
+            "icon" : "H2_Halberdier_Icon",
+	        "level" : 2,
+            "synergies" :
+            [
+                "Warrior",
+                "HeavyArmor"
+            ]
+        },
+        {
+            "name" : "TT_Light_Cavalry",
+            "icon" : "TT_Light_Cavalry_Icon",
+	        "level" : 2,
+            "synergies" :
+            [
+                "Rider",
+                "HeavyArmor"
+            ]
+        },
+        {
+            "name" : "TT_HighPriest",
+            "icon" : "TT_HighPriest_Icon",
+	        "level" : 2,
+            "synergies" :
+            [
+                "Rider",
+                "Healer"
+            ]
+        },
+        {
+            "name" : "TT_Heavy_Cavalry",
+            "icon" : "TT_Heavy_Cavalry_Icon",
+	        "level" : 3,
+            "synergies" :
+            [
+                "Rider",
+                "HeavyArmor"
+            ]
+        },
+        {
+            "name" : "TT_Paladin",
+            "icon" : "TT_Paladin_Icon",
+	        "level" : 3,
+            "synergies" :
+            [
+                "Rider",
+                "HeavyArmor",
+                "Healer"
+            ]
+        },
+        {
+            "name" : "TT_Mounted_Mage",
+            "icon" : "TT_Mounted_Mage_Icon",
+	        "level" : 3,
+            "synergies" :
+            [
+                "Rider",
+                "Magician"
+            ]
+        },
+        {
+            "name" : "TT_King",
+            "icon" : "TT_King_Icon",
+	        "level" : 3,
+            "synergies" :
+            [
+                "Warrior",
+                "HeavyArmor",
+                "Shielder"
+            ]
+        },
+         {
+            "name" : "TT_Mounted_Scout",
+            "icon" : "TT_Mounted_Scout_Icon",
+	        "level" : 3,
+            "synergies" :
+            [
+                "Warrior",
+                "HeavyArmor",
+                "Archer"
+            ]
+        },
+         {
+            "name" : "H4_Mounted_Knight",
+            "icon" : "H4_Mounted_Knight_Icon",
+	        "level" : 3,
+            "synergies" :
+            [
+                "Warrior",
+                "HeavyArmor",
+                "Shielder"
+            ]
+        },
+        {
+            "name" : "TT_Mounted_King",
+            "icon" : "TT_Mounted_King_Icon",
+	        "level" : 4,
+            "synergies" :
+            [
+                "Warrior",
+                "HeavyArmor",
+                "Shielder"
+            ]
+        }
+	
+	
+	
+     ]
+
+}

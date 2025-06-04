@@ -2,13 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HolrizontalTileContainer : MonoBehaviour, IInitializer
+public class HorizontalTileContainer : MonoBehaviour, IInitializer
 {
     #region Members : Private
+    [SerializeField]
     private List<Tile> tiles = new List<Tile>();
     #endregion
 
-    #region Methods : Public
+    #region Members : Property
+    public IEnumerator Tiles { get => tiles.GetEnumerator(); }
+    #endregion
+
+    #region Methods : Interface
     public void Init()
     {
         var arrTile = GetComponentsInChildren<Tile>();
@@ -23,6 +28,18 @@ public class HolrizontalTileContainer : MonoBehaviour, IInitializer
             return a.transform.position.x < b.transform.position.x ? -1 : 1;
         });
     }
+    #endregion
 
+    #region Methods : Public
+    public Tile GetFirstEmptyTile()
+    {
+        foreach(var tile in tiles)
+        {
+            if (tile.HasHero)
+                return tile;
+        }
+
+        return null;
+    }
     #endregion
 }

@@ -1,0 +1,24 @@
+{
+    "heroes": [
+        {
+            "name" : "Warrior",
+            "Icon" : "Woarrior_icon",
+            "synergies" :
+        [
+            "pre",
+            "1111"
+        ]
+        },
+        {
+            "name" : "Magician",
+            "Icon" : "Magician_icon",
+            "synergies" :
+            [
+                "pre33",
+                "11331"
+            ]
+            }
+	
+     ]
+
+}

@@ -1,0 +1,145 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Heroes
+  m_EditorClassIdentifier: 
+  m_GroupName: Heroes
+  m_Data:
+    m_SerializedData: []
+  m_GUID: ca1e826fc19fb3541b9b14d0cd66b38b
+  m_SerializeEntries:
+  - m_GUID: 1da31e02820ee4d4f9cbd3b26ce9b745
+    m_Address: TT_Paladin
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hero
+  - m_GUID: e82d657d19058cf4c9b710e56c0ffba9
+    m_Address: TT_Mounted_Paladin
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hero
+  - m_GUID: b04e65c6c2d2bbb41ae6057f3e78eb17
+    m_Address: TT_Commander
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hero
+  - m_GUID: 1e0b3b7fe41c3f24fa5a54b66641aabd
+    m_Address: TT_Mounted_Mage
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hero
+  - m_GUID: d22c4e81c66cabd4fbd9073923115471
+    m_Address: TT_Mage
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hero
+  - m_GUID: 171f50cc4380c554fac49a1335432267
+    m_Address: TT_HighPriest
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hero
+  - m_GUID: e00c61b8572b80c46b6860ae985a123c
+    m_Address: TT_Archer
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hero
+  - m_GUID: 3e9536cba20b3ee49b6ddacd1bed94db
+    m_Address: TT_Crossbowman
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hero
+  - m_GUID: e2410f1a76a1ec246aa5055198c793e4
+    m_Address: TT_Mounted_Scout
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hero
+  - m_GUID: 3ff22faa59da2134d9b292896e30ca13
+    m_Address: TT_Scout
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hero
+  - m_GUID: cd9a6d7f124e32e4eaa0f09a9c3594aa
+    m_Address: TT_Peasant
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hero
+  - m_GUID: bb2c4a31ddf67ab48af384b808109d1d
+    m_Address: TT_Mounted_Priest
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hero
+  - m_GUID: 12e52b6b9a21ca04d97fce68446fa742
+    m_Address: TT_Priest
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hero
+  - m_GUID: effafa43328648f42af9713338347850
+    m_Address: H1_Spearman
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hero
+  - m_GUID: f3412b11d7daab743a6d10475c5be1cb
+    m_Address: H2_Halberdier
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hero
+  - m_GUID: dee0091a183ce3543838922783616256
+    m_Address: H4_Mounted_Knight
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hero
+  - m_GUID: dffbaaaadd4b2dd4f8cb85395fd99066
+    m_Address: TT_Heavy_Cavalry
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hero
+  - m_GUID: 342f73a91cbf3ce468d456230ff1db25
+    m_Address: TT_Heavy_Infantry
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hero
+  - m_GUID: ed60e287fdc6e85429308abaff589de7
+    m_Address: TT_HeavySwordman
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hero
+  - m_GUID: e59f68063de22344cbd1cdbc11383c53
+    m_Address: TT_King
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hero
+  - m_GUID: 615b9bfc629580846a072e4914fc4ada
+    m_Address: TT_Light_Cavalry
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hero
+  - m_GUID: 371bca3d1f3ad9d4ca144819090c7d18
+    m_Address: TT_Light_Infantry
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hero
+  - m_GUID: 12ad254d65433ab4ebedc030a9c71932
+    m_Address: TT_Mounted_King
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hero
+  - m_GUID: 9552bf547fa83ff4b8eacd414ddcdf0f
+    m_Address: TT_Swordman
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hero
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 8138524ce80a47446a65d259016c613a, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: cce840375dd2f8a44b03ede3ac454f74, type: 2}
+    - {fileID: 11400000, guid: 45a3efccc9d33a845b501fa758a34948, type: 2}
