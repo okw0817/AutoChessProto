@@ -5,11 +5,12 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     #region Members : Private
-    private bool hasHero = false;
+    private Hero standingHero = null;
     #endregion
 
     #region Members : Property
-    public bool HasHero { get => hasHero; set => hasHero = value;}
+    public Hero StandingHero { get => standingHero; set => standingHero = value;}
+    public TileType type { get; set; }
     #endregion
 
 }

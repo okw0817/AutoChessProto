@@ -12,6 +12,7 @@ public class HeroWatingRoom : MonoBehaviour, IInitializer
     public void Init()
     {
         horizontalTileContainer = GetComponent<HorizontalTileContainer>();
+        horizontalTileContainer.TileType = TileType.WatingRoom;
         horizontalTileContainer.Init();
     }
     #endregion
@@ -21,7 +22,7 @@ public class HeroWatingRoom : MonoBehaviour, IInitializer
     #endregion
 
     #region Methods : Public
-    public bool AddHero(GameObject hero)
+    public bool AddHero(Hero hero)
     {
         var tile = horizontalTileContainer.GetFirstEmptyTile();
 
@@ -30,7 +31,7 @@ public class HeroWatingRoom : MonoBehaviour, IInitializer
         else
         {
             hero.transform.position = tile.transform.position;
-            tile.HasHero = true;
+            tile.StandingHero = hero;
             return true;
         }
     }

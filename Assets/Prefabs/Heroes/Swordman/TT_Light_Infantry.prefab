@@ -2316,7 +2316,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a03a0214a80bd614dba8541e16e52624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charaterState: {fileID: 0}
+  charaterState: {fileID: 11400000, guid: 1a44a1ac443186741a25900c8f8a35fe, type: 2}
+  synergyData: []
 --- !u!1 &111836
 GameObject:
   m_ObjectHideFlags: 0

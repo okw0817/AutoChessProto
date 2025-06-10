@@ -15,6 +15,7 @@ public class TileController : MonoBehaviour
 
         foreach(var container in holizontalTileContainer)
         {
+            container.TileType = TileType.Stage;
             container.Init();
             allTiles.Add(container);
         }

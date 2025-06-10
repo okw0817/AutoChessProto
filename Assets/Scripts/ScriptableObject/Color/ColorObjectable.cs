@@ -8,7 +8,7 @@ public class ColorObjectable : ScriptableObject
     #region Members : Public
     [SerializeField]
     private Color synergyActive;
-    public Color SynergySynergy { get { return synergyActive; } }
+    public Color SynergyActive { get { return synergyActive; } }
 
     [SerializeField]
     private Color synergyInActive;

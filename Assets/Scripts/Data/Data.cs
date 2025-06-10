@@ -5,12 +5,12 @@ public enum WorldState { None, Init, Login, Main}
 
 #region Command
 
-public enum UIPageString { None, Login, Main, Store};
+public enum UIPageString { None, Login, Main, Store, Synergy};
 public enum UIPopupString { None, OneButton};
 public enum ReciverType { None, UIManager, SceneLoadManager}
 public enum SceneName { None, Init, Main}
 
-public enum CommandDataString { None, HeroList, Exe, }
+public enum CommandDataString { None, HeroList, Exe, AddSynergy, DeleteSynergy }
 public enum CommandCallbackString { None, Callback, LevelUp }
 #endregion
 
@@ -29,10 +29,15 @@ public static class ResorucesName
     public static readonly string CharactersProperties = "CharactersProperties";
     public static readonly string ProbabilityLevels = "ProbabilityLevels";
     public static readonly string RequireExperiences = "RequireExperiences";
+    public static readonly string Synergy = "Synergy";
     #endregion
 }
 #endregion
 
 #region Addressabels
 public enum AddressablesLabel { None, Hero }
+#endregion
+
+#region Tile
+public enum TileType { None, WatingRoom, Stage}
 #endregion

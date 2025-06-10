@@ -14,6 +14,20 @@ public class HeroData
     public int level;
     public string[] synergies;
 }
+
+public struct HeroState
+{
+    public int HP;
+    public int MP;
+    public int Defense;
+    public int MagicDefense;
+    public int Damage;
+    public int MagicDamage;
+    public int AttackRange;
+    public int Critical;
+    public int gain_Attack_MP;
+    public int gain_Defense_MP;
+}
 #endregion
 
 #region Probability

@@ -51,6 +51,16 @@
             ]
         },
         {
+            "name" : "TT_Light_Infantry",
+            "icon" : "TT_Light_Infantry_Icon",
+	        "level" : 1,
+            "synergies" :
+            [
+                "Warrior",
+                "Shielder"
+            ]
+        },
+        {
             "name" : "TT_Priest",
             "icon" : "TT_Priest_Icon",
 	        "level" : 1,
@@ -91,14 +101,13 @@
             ]
         },
         {
-            "name" : "TT_Paladin",
-            "icon" : "TT_Paladin_Icon",
+            "name" : "TT_Scout",
+            "icon" : "TT_Scout_Icon",
 	        "level" : 2,
             "synergies" :
             [
-                "Warrior",
-                "HeavyArmor",
-                "Healer"
+                "Archer",
+                "ClothArmor"
             ]
         },
         {
@@ -147,7 +156,7 @@
 	        "level" : 3,
             "synergies" :
             [
-                "Rider",
+                "Warrior",
                 "HeavyArmor",
                 "Healer"
             ]
@@ -159,7 +168,19 @@
             "synergies" :
             [
                 "Rider",
-                "Magician"
+                "Magician",
+                "ClothArmor"
+            ]
+        },
+        {
+            "name" : "TT_Mounted_Priest",
+            "icon" : "TT_Mounted_Priest_Icon",
+	        "level" : 3,
+            "synergies" :
+            [
+                "Rider",
+                "Healer",
+                "ClothArmor"
             ]
         },
         {
@@ -187,7 +208,7 @@
          {
             "name" : "H4_Mounted_Knight",
             "icon" : "H4_Mounted_Knight_Icon",
-	        "level" : 3,
+	        "level" : 4,
             "synergies" :
             [
                 "Warrior",
@@ -205,10 +226,29 @@
                 "HeavyArmor",
                 "Shielder"
             ]
+        },
+        {
+            "name" : "TT_Commander",
+            "icon" : "TT_Commander_Icon",
+	        "level" : 4,
+            "synergies" :
+            [
+                "Warrior",
+                "HeavyArmor",
+                "Shielder"
+            ]
+        },
+        {
+            "name" : "TT_Mounted_Paladin",
+            "icon" : "TT_Mounted_Paladin_Icon",
+	        "level" : 4,
+            "synergies" :
+            [
+                "Rider",
+                "Healer",
+                "HeavyArmor"
+            ]
         }
-	
-	
-	
      ]
 
 }

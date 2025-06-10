@@ -11,6 +11,7 @@ public class HorizontalTileContainer : MonoBehaviour, IInitializer
 
     #region Members : Property
     public IEnumerator Tiles { get => tiles.GetEnumerator(); }
+    public TileType TileType { get; set; }
     #endregion
 
     #region Methods : Interface
@@ -20,6 +21,7 @@ public class HorizontalTileContainer : MonoBehaviour, IInitializer
 
         foreach (var tile in arrTile)
         {
+            tile.type = TileType;
             tiles.Add(tile);
         }
 
@@ -35,7 +37,7 @@ public class HorizontalTileContainer : MonoBehaviour, IInitializer
     {
         foreach(var tile in tiles)
         {
-            if (!tile.HasHero)
+            if (tile.StandingHero == null)
                 return tile;
         }
 

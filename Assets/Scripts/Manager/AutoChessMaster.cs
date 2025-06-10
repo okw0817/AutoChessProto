@@ -8,8 +8,10 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
     [SerializeField]
     private PrefabPool prefabPool;
 
-private TileController tileController;
+    private SynergyController synergyController;
+    private TileController tileController;
     private HeroWatingRoom heroWatingRoom;
+    private PickUp pickup;
 
     private Dictionary<int, List<HeroData>> heroDic = new Dictionary<int, List<HeroData>>();
 
@@ -42,22 +44,15 @@ private TileController tileController;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            var tt = GetProbabilityLevel(curLevel++);
-            var list = GetStoreList(tt);
-
-            foreach(var item in list)
-            {
-                Debug.Log($"{item.level},{item.name}");
-            }
-        }
+        PickupSequence();
     }
     #endregion
 
     #region Methods : Override
     public override void Init()
     {
+        pickup = new PickUp();
+        synergyController = new SynergyController();
         tileController = GetComponentInChildren<TileController>();
         heroWatingRoom = GetComponentInChildren<HeroWatingRoom>();
         heroWatingRoom.Init();
@@ -89,6 +84,54 @@ private TileController tileController;
             var hero = enumerator.Current;
             heroDic[hero.level].Add(hero);
         }
+    }
+
+    private void PickupSequence()
+    {
+        if (Input.GetMouseButtonDown(0) && pickup.PickupObject == null)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Tile")))
+            {
+                Debug.Log("Pickup");
+                var tile = hit.transform.GetComponent<Tile>();
+                if (tile != null && tile.StandingHero != null)
+                {
+                    pickup.Pickup(tile.StandingHero.gameObject);
+                    if(tile.type == TileType.Stage)
+                    {
+                        synergyController.DeleteSynergy(tile.StandingHero);
+                    }
+                }
+            }
+        }
+        else if (Input.GetMouseButtonUp(0) && pickup.PickupObject != null)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Tile")))
+            {
+                Debug.Log("Drop");
+                var tile = hit.transform.GetComponent<Tile>();
+                if (tile != null)
+                {
+                    tile.StandingHero = pickup.PickupObject.GetComponent<Hero>();
+                    pickup.DropOff(tile.transform);
+
+                    if(tile.type == TileType.Stage)
+                    {
+                        synergyController.AddSynergy(tile.StandingHero);
+                    }
+                }
+            }
+        }
+
+        if(pickup.PickupObject != null)
+        {
+            var mousePosition = Input.mousePosition;
+            var screenPoint = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, 10.0f));
+            pickup.Attach(screenPoint);
+        }
+
     }
     #endregion
 
@@ -171,9 +214,20 @@ private TileController tileController;
         if (obj == null)
         {
             obj = await ResourceManager.Instance.GetHeroRasources(heroName);
+
+            var heroData = ResourceManager.Instance.Heroes;
+            while(heroData.MoveNext())
+            {
+                if(heroData.Current.name == heroName)
+                {
+                    obj.GetComponent<Hero>().SetHeroData(heroData.Current);
+                    break;
+                }
+            }
+
         }
 
-        if (heroWatingRoom.AddHero(obj))
+        if (heroWatingRoom.AddHero(obj.GetComponent<Hero>()))
         {
             uI_Hero_Icon.IsSale = true;
         }

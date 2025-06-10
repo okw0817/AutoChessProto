@@ -26,6 +26,14 @@ public class CharaterState : ScriptableObject
     public int Damage { get { return damage; } }
 
     [SerializeField]
+    private float attackSpeed;
+    public float AttackSpeed { get { return attackSpeed; } }
+
+    [SerializeField]
+    private int magicDamage;
+    public int MagicDamage { get { return magicDamage; } }
+
+    [SerializeField]
     private int attackRange;
     public int AttackRange { get { return attackRange; } }
 
