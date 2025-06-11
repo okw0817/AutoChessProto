@@ -4507,6 +4507,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charaterState: {fileID: 11400000, guid: 7f300b24425893942ac995b19c297a23, type: 2}
+  synergyData:
+  - {fileID: 11400000, guid: 7f11f36025e7c7942aa33da5527ff2d1, type: 2}
+  - {fileID: 11400000, guid: 587d6bd3dd6d74540867c6b921683c6b, type: 2}
 --- !u!114 &7344935102847510127
 MonoBehaviour:
   m_ObjectHideFlags: 0

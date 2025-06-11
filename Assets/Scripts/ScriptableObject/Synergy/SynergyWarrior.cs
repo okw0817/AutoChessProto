@@ -13,16 +13,23 @@ public class SynergyWarrior : SynergyObjectable
     public override void ActiveSynergy(int level, Hero hero)
     {
         hero.max_HeroState.Damage = hero.CharacterState.Damage + dic_Level[level];
+
+        base.ActiveSynergy(level, hero);
     }
 
     public override void Init()
     {
+        if (dic_Level != null)
+            return;
+
         dic_Level = new Dictionary<int, int>();
         dic_Level.Add(0, 0);
         dic_Level.Add(1, 10);
         dic_Level.Add(2, 20);
         dic_Level.Add(3, 30);
         dic_Level.Add(4, 50);
+
+        synergyName = CharacterSynergy.Warrior.ToString();
     }
     #endregion
 }

@@ -136,7 +136,7 @@
 	        "level" : 2,
             "synergies" :
             [
-                "Rider",
+                "ClothArmor",
                 "Healer"
             ]
         },
@@ -200,8 +200,8 @@
 	        "level" : 3,
             "synergies" :
             [
-                "Warrior",
-                "HeavyArmor",
+                "Rider",
+                "ClothArmor",
                 "Archer"
             ]
         },

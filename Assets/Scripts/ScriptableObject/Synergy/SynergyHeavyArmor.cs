@@ -14,10 +14,15 @@ public class SynergyHeavyArmor : SynergyObjectable
     {
         hero.max_HeroState.Damage = hero.CharacterState.Defense + dic_Level[level].Item1;
         hero.max_HeroState.Defense = hero.CharacterState.MaxHP + dic_Level[level].Item2;
+
+        base.ActiveSynergy(level, hero);
     }
 
     public override void Init()
     {
+        if (dic_Level != null)
+            return;
+
         dic_Level = new Dictionary<int, (int, int)>();
         dic_Level.Add(0, (0, 0)); 
         dic_Level.Add(1, (5, 5));
@@ -25,6 +30,7 @@ public class SynergyHeavyArmor : SynergyObjectable
         dic_Level.Add(3, (15, 15));
         dic_Level.Add(4, (20, 20));
 
+        synergyName = CharacterSynergy.HeavyArmor.ToString();
     }
     #endregion
 }

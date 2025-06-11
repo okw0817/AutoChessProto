@@ -21,6 +21,10 @@ public class Hero : Character, IAttack, IAttacked, IMovable
     {
         var box = GetComponent<BoxCollider>();
         if (box == null) gameObject.AddComponent<BoxCollider>();
+        foreach(var synergy in synergyData)
+        {
+            synergy.Init();
+        }
     }
     #endregion
 
@@ -65,6 +69,28 @@ public class Hero : Character, IAttack, IAttacked, IMovable
     public void SetHeroData(HeroData heroData)
     {
         this.heroData = heroData;
+    }
+
+    #endregion
+
+    #region Methods : public
+    public void AdjustSynergy(int level)
+    {
+        foreach(var synergy in synergyData)
+        {
+            synergy.ActiveSynergy(level, this);
+        }
+    }
+
+    public SynergyObjectable HasSynergy(string synergyName)
+    {
+        foreach(var synergy in synergyData)
+        {
+            if (synergy.IsSame(synergyName))
+                return synergy;
+        }
+
+        return null;
     }
 
     #endregion

@@ -17,12 +17,17 @@ public class SynergyRider : SynergyObjectable
 
     public override void Init()
     {
+        if (dic_Level != null)
+            return;
+
         dic_Level = new Dictionary<int, (int, int)>();
         dic_Level.Add(0, (0, 0));
         dic_Level.Add(1, (10, 10));
         dic_Level.Add(2, (20, 20));
         dic_Level.Add(3, (30, 30));
         dic_Level.Add(4, (40, 40));
+
+        synergyName = CharacterSynergy.Rider.ToString();
 
     }
     #endregion

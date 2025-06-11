@@ -47,13 +47,23 @@ public class UIPage_Synergy : UIPage
         if (data.ContainsKey(CommandDataString.AddSynergy.ToString()))
         {
             var heroData = (HeroData)data[CommandDataString.AddSynergy.ToString()];
+            var dic = (Dictionary<string, int>)data[CommandDataString.SynergyCount.ToString()];
             SetSynergy(heroData, 1);
+            foreach(var synergy in heroData.synergies)
+            {
+                SynergyCount(dic, synergy, Dic_Synergy[synergy].Count);
+            }
             Debug.Log($"AddSynergy : {heroData.name}");
         }
 
         if (data.ContainsKey(CommandDataString.DeleteSynergy.ToString()))
         {
             var heroData = (HeroData)data[CommandDataString.DeleteSynergy.ToString()];
+            var dic = (Dictionary<string, int>)data[CommandDataString.SynergyCount.ToString()];
+            foreach (var synergy in heroData.synergies)
+            {
+                SynergyCount(dic, synergy, Dic_Synergy[synergy].Count);
+            }
             SetSynergy(heroData, -1);
             Debug.Log($"DeleteSynergy : {heroData.name}");
         }
@@ -118,6 +128,19 @@ public class UIPage_Synergy : UIPage
                     item.SetParent(active_rect);
                 }
             }
+        }
+
+    }
+
+    private void SynergyCount(Dictionary<string, int> dic, string synergy, int count)
+    {
+        if(!dic.ContainsKey(synergy))
+        {
+            dic.Add(synergy, count);
+        }
+        else
+        {
+            dic[synergy] = count;
         }
 
     }

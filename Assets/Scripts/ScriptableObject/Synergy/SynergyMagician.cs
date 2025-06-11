@@ -17,6 +17,9 @@ public class SynergyMagician : SynergyObjectable
 
     public override void Init()
     {
+        if (dic_Level != null)
+            return;
+
         dic_Level = new Dictionary<int, (int,int)>();
         dic_Level.Add(0, (0,0));
         dic_Level.Add(1, (5, 5));
@@ -24,6 +27,7 @@ public class SynergyMagician : SynergyObjectable
         dic_Level.Add(3, (30, 15));
         dic_Level.Add(4, (50, 20));
 
+        synergyName = CharacterSynergy.Magician.ToString();
     }
     #endregion
 }

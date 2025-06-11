@@ -17,6 +17,9 @@ public class SynergyHealer : SynergyObjectable
 
     public override void Init()
     {
+        if (dic_Level != null)
+            return;
+
         dic_Level = new Dictionary<int, int>();
         dic_Level.Add(0, 0);
         dic_Level.Add(1, 15);
@@ -24,6 +27,7 @@ public class SynergyHealer : SynergyObjectable
         dic_Level.Add(3, 30);
         dic_Level.Add(4, 50);
 
+        synergyName = CharacterSynergy.Healer.ToString();
     }
     #endregion
 }

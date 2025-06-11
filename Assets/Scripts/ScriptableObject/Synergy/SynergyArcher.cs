@@ -17,12 +17,17 @@ public class SynergyArcher : SynergyObjectable
 
     public override void Init()
     {
+        if (dic_Level != null)
+            return;
+
         dic_Level = new Dictionary<int, (int,int)>();
         dic_Level.Add(0, (0,0));
         dic_Level.Add(1, (1,5));
         dic_Level.Add(2, (1,10));
         dic_Level.Add(3, (2,15));
         dic_Level.Add(4, (2,20));
+
+        synergyName = CharacterSynergy.Archer.ToString();
     }
     #endregion
 }

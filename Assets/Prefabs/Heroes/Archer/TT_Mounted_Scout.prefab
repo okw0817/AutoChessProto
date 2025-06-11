@@ -11448,7 +11448,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charaterState: {fileID: 11400000, guid: d63952c1f8620ec47ba0872642068205, type: 2}
-  synergyData: []
+  synergyData:
+  - {fileID: 11400000, guid: 6db65a68794385d4c86a8d49f010b10f, type: 2}
+  - {fileID: 11400000, guid: ebac9d0d572c2de4781c841ba0052047, type: 2}
+  - {fileID: 11400000, guid: 5264bb3e7cf347a4a97c2e21e6d2b995, type: 2}
 --- !u!1 &151494
 GameObject:
   m_ObjectHideFlags: 0

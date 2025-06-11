@@ -18,6 +18,9 @@ public class SynergyClothArmor : SynergyObjectable
 
     public override void Init()
     {
+        if (dic_Level != null)
+            return;
+
         dic_Level = new Dictionary<int, (int, int)>();
         dic_Level.Add(0, (0,0));
         dic_Level.Add(1, (5,50));
@@ -25,6 +28,7 @@ public class SynergyClothArmor : SynergyObjectable
         dic_Level.Add(3, (15,100));
         dic_Level.Add(4, (20,150));
 
+        synergyName = CharacterSynergy.ClothArmor.ToString();
     }
     #endregion
 }
