@@ -30,14 +30,19 @@ public static class ResorucesName
     public static readonly string ProbabilityLevels = "ProbabilityLevels";
     public static readonly string RequireExperiences = "RequireExperiences";
     public static readonly string Synergy = "Synergy";
+    public static readonly string ProjectileEffect = "Effects";
     #endregion
 }
 #endregion
 
 #region Addressabels
-public enum AddressablesLabel { None, Hero }
+public enum AddressablesLabel { None, Hero, Effect, Projectile }
 #endregion
 
 #region Tile
 public enum TileType { None, WatingRoom, Stage}
+#endregion
+
+#region Hero
+public enum Team { None, Friendly, Enemy}
 #endregion

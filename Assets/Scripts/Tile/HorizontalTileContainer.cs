@@ -10,7 +10,7 @@ public class HorizontalTileContainer : MonoBehaviour, IInitializer
     #endregion
 
     #region Members : Property
-    public IEnumerator Tiles { get => tiles.GetEnumerator(); }
+    public IEnumerator<Tile> Tiles { get => tiles.GetEnumerator(); }
     public TileType TileType { get; set; }
     #endregion
 
@@ -42,6 +42,14 @@ public class HorizontalTileContainer : MonoBehaviour, IInitializer
         }
 
         return null;
+    }
+
+    public Tile GethorizontalTile(int horizontalIndex)
+    {
+        if (horizontalIndex < 0 || horizontalIndex > tiles.Count)
+            return null;
+
+        return tiles[horizontalIndex];
     }
     #endregion
 }

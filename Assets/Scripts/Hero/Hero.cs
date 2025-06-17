@@ -1,74 +1,98 @@
 using UnityEngine.EventSystems;
 using UnityEngine;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 
 [RequireComponent(typeof(Collider))]
 public class Hero : Character, IAttack, IAttacked, IMovable
 {
     #region Members : private
     private HeroData heroData;
+    private int[] AmountArr = {1, -1};
 
     [SerializeField]
     private List<SynergyObjectable> synergyData;
+
+    private Tile curTile;
+    private Tile nextTile;
+    private Hero targetHero;
+    private bool isMoving;
+    private bool isAttackWating;
+    private float moveSpeed = 2.0f;
     #endregion
 
     #region Members : Property
     public HeroData HeroData { get => heroData; }
+    public Tile CurTile { get => curTile; set => curTile = value; }
+    public Hero TargetHero { get => targetHero; set => targetHero = value; }
+
+    public Team HeroTeam { get; set; }
     #endregion
 
     #region Methods : Mono
     private void Awake()
     {
-        var box = GetComponent<BoxCollider>();
-        if (box == null) gameObject.AddComponent<BoxCollider>();
-        foreach(var synergy in synergyData)
-        {
-            synergy.Init();
-        }
+        Init();
     }
     #endregion
 
     #region Methods : override
     public override void Init()
     {
+        isMoving = false;
+        isAttackWating = false;
+        var box = GetComponent<BoxCollider>();
+        if (box == null) gameObject.AddComponent<BoxCollider>();
+        foreach (var synergy in synergyData)
+        {
+            synergy.Init();
+        }
+
         base.Init();
     }
     #endregion
 
     #region Methods : Interface
-    public void Attack(Character target, int damage)
+    public async void Attack(Character target, int damage)
     {
-        if(target is IAttacked)
-        {
-            (target as IAttacked).Attacked(damage);
-        }
+        if (isAttackWating)
+            return;
+
+        isAttackWating = true;
+
+        var chessMaster = AutoChessMaster.Instance;
+        var obj = await chessMaster.GetPrefabInPool(heroData.projectile);
+        var projectile = obj.GetComponent<Projectile>();
+        projectile.Init();
+        projectile.Target = targetHero.gameObject;
+        projectile.SetDamage(cur_HeroState.Damage, cur_HeroState.MagicDamage);
+        projectile.transform.position = transform.position;
+        projectile.transform.LookAt(target.transform, Vector3.up);
+        projectile.ProjectileName = heroData.projectile;
+        chessMaster.AddProjectile(projectile);
+
+        await UniTask.WaitForSeconds(cur_HeroState.attackSpeed);
+        isAttackWating = false;
+
+        Debug.Log($"Attack : {heroData.name}");
+
     }
 
     public void Attacked(int damage)
     {
+        if (cur_HeroState.HP <= 0 || damage == 0)
+            return;
+
         cur_HeroState.HP -= damage;
+
+        Debug.Log($"{heroData.name}: Attacked {damage}");
 
         if (cur_HeroState.HP <= 0) Die();
     }
 
     public void Die()
     {
-        throw new System.NotImplementedException();
-    }
-
-    public void Move()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        Debug.Log($"{name}");
-    }
-
-    public void SetHeroData(HeroData heroData)
-    {
-        this.heroData = heroData;
+        AutoChessMaster.Instance.DeleteHero(this);
     }
 
     #endregion
@@ -76,7 +100,7 @@ public class Hero : Character, IAttack, IAttacked, IMovable
     #region Methods : public
     public void AdjustSynergy(int level)
     {
-        foreach(var synergy in synergyData)
+        foreach (var synergy in synergyData)
         {
             synergy.ActiveSynergy(level, this);
         }
@@ -84,7 +108,7 @@ public class Hero : Character, IAttack, IAttacked, IMovable
 
     public SynergyObjectable HasSynergy(string synergyName)
     {
-        foreach(var synergy in synergyData)
+        foreach (var synergy in synergyData)
         {
             if (synergy.IsSame(synergyName))
                 return synergy;
@@ -92,7 +116,127 @@ public class Hero : Character, IAttack, IAttacked, IMovable
 
         return null;
     }
+    public void Move()
+    {
+        if (targetHero == null || targetHero.IsDie())
+            return;
 
+        if(!isMoving && nextTile == null)
+        {
+            nextTile = GetNextTile();
+            curTile.StandingHero = null;
+            nextTile.StandingHero = this;
+        }
+        else
+        {
+            isMoving = MoveToTarget(nextTile);
+            if (!isMoving)
+            {
+                curTile = nextTile;
+                nextTile = null;
+            }
+        }
+    }
+
+    public void SetHeroData(HeroData heroData)
+    {
+        this.heroData = heroData;
+    }
+
+    public bool IsDie()
+    {
+        return cur_HeroState.HP <= 0;
+    }
+
+
+    public bool isArrive()
+    {
+        int horizontalLenth = Mathf.Abs(targetHero.curTile.Index.Item1 - CurTile.Index.Item1);
+        int vertiacalLenth = Mathf.Abs(targetHero.curTile.Index.Item2 - CurTile.Index.Item2);
+
+        return (horizontalLenth + vertiacalLenth) <= cur_HeroState.AttackRange;
+    }
+    #endregion
+
+    #region Methods : Private
+    private Tile GetNextTile()
+    {
+        var chessMaster = AutoChessMaster.Instance;
+        if (curTile.Index.Item2 >= targetHero.CurTile.Index.Item2 - 1 && curTile.Index.Item2 <= targetHero.CurTile.Index.Item2 + 1)
+        {
+            //horizontal
+            if (curTile.Index.Item1 <= targetHero.CurTile.Index.Item1 - 1)
+            {
+                //return chessMaster.GetTiltePosition((curTile.Index.Item1 + 1, curTile.Index.Item2));
+                return CheckTile(curTile.Index, 1, 0);
+            }
+            else if (curTile.Index.Item1 >= targetHero.CurTile.Index.Item1 + 1)
+            {
+                return CheckTile(curTile.Index, -1, 0);
+            }
+        }
+        else
+        {
+            //vertical
+            if (curTile.Index.Item2 < targetHero.CurTile.Index.Item2 - 1)
+            {
+                return CheckTile(curTile.Index, 0, 1);
+            }
+            else if (curTile.Index.Item2 > targetHero.CurTile.Index.Item2 + 1)
+            {
+                return CheckTile(curTile.Index, 0, -1);
+            }
+        }
+
+        return null;
+    }
+
+    private Tile CheckTile((int, int) index, int HorizontalAmount, int VerticalAmount)
+    {
+        var chessMaster = AutoChessMaster.Instance;
+        var tile = chessMaster.GetTiltePosition((index.Item1 + HorizontalAmount, index.Item2 + VerticalAmount));
+        if (tile.StandingHero != null)
+        {
+            if(VerticalAmount != 0)
+            {
+                foreach(var amount in AmountArr)
+                {
+                    tile = chessMaster.GetTiltePosition((index.Item1 + amount, index.Item2));
+
+                    if (tile != null && tile.StandingHero == null)
+                        return tile;
+                }
+            }
+
+            if (HorizontalAmount != 0)
+            {
+                foreach (var amount in AmountArr)
+                {
+                    tile = chessMaster.GetTiltePosition((index.Item1, index.Item2 + amount));
+
+                    if (tile != null && tile.StandingHero == null)
+                        return tile;
+                }
+            }
+        }
+        else
+            return tile;
+
+        return null;
+    }
+
+    private bool MoveToTarget(Tile targetTie)
+    {
+        transform.position = Vector3.MoveTowards(transform.position, targetTie.transform.position, moveSpeed * Time.deltaTime);
+        Vector3 direction = (targetTie.transform.position - transform.position).normalized;
+        Quaternion rotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 360.0f * Time.deltaTime);
+
+        if (Vector3.Distance(transform.position, targetTie.transform.position) < 0.1)
+            return false;
+        else
+            return true;
+    }
     #endregion
 
 }

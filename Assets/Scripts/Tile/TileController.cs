@@ -24,11 +24,32 @@ public class TileController : MonoBehaviour
         {
             return containerA.transform.position.z > containerB.transform.position.z ? 1 : -1;
         });
+
+        for (int i = 0; i < allTiles.Count; ++i)
+        {
+            var colTiles = allTiles[i].Tiles;
+            int colIndex = 0;
+            while (colTiles.MoveNext())
+            {
+                var tile = colTiles.Current;
+                tile.SetIndex((colIndex++, i));
+            }
+        }
     }
     #endregion
 
-    #region Methods : Public
+    #region Methods : Private
 
+    #endregion
+
+    #region Methods : Public
+    public Tile GetTile(int horizontalIndex, int virticalIndex)
+    {
+        if (virticalIndex < 0 || allTiles.Count < virticalIndex)
+            return null;
+
+        return allTiles[virticalIndex].GethorizontalTile(horizontalIndex);
+    }
     #endregion
 
 }

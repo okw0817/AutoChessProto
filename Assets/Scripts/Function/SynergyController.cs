@@ -10,6 +10,10 @@ public class SynergyController
     private Dictionary<string, List<Hero>> sortSynergyDic = new Dictionary<string, List<Hero>>();
     #endregion
 
+    #region Members : Property
+    public Dictionary<string, List<Hero>>.Enumerator HeroEnumerator { get => synergies.GetEnumerator(); }
+    #endregion
+
     #region Methods : Public
     public void AddSynergy(Hero hero)
     {

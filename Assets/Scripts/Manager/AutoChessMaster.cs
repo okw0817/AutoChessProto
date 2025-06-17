@@ -11,15 +11,21 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
     private SynergyController synergyController;
     private TileController tileController;
     private HeroWatingRoom heroWatingRoom;
+    private HeroBehaviorController heroBehaviorController;
+    private ProjectileController projectileController;
     private PickUp pickup;
 
     private Dictionary<int, List<HeroData>> heroDic = new Dictionary<int, List<HeroData>>();
+    private List<Hero> enemyList = new List<Hero>();
+    private List<Hero> heroList = new List<Hero>();
 
     private int curLevel = 1;
     private int requireExperience = 0;
     private int curExperience = 0;
     private int maxStoreLevel = 8;
     private int maxStoreList = 5;
+
+    private bool gameStart = false;
     #endregion
 
     #region Members : Properties
@@ -46,6 +52,29 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
     {
         PickupSequence();
     }
+
+    private void FixedUpdate()
+    {
+        if (!gameStart)
+            return;
+
+        heroBehaviorController.UpdateMove();
+        projectileController.UpdateMove();
+
+    }
+
+    private void Start()
+    {
+        var probabilities = GetProbabilityLevel(CurLevel);
+        var list = GetStoreList(probabilities);
+
+        var raw = 6;
+        var col = 0;
+        foreach(var hero in list)
+        {
+            AddEnemy(hero.name, (++col, raw));
+        }
+    }
     #endregion
 
     #region Methods : Override
@@ -53,8 +82,10 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
     {
         pickup = new PickUp();
         synergyController = new SynergyController();
+        projectileController = new ProjectileController();
         tileController = GetComponentInChildren<TileController>();
         heroWatingRoom = GetComponentInChildren<HeroWatingRoom>();
+        heroBehaviorController = new HeroBehaviorController(tileController, heroList, enemyList);
         heroWatingRoom.Init();
 
         for(int i=1; i<= maxStoreList; ++i)
@@ -68,11 +99,31 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
     #endregion
 
     #region Methods : Public
-    public Vector3 GetTiltePosition(Vector3 pos)
+    public Tile GetTiltePosition((int, int)index)
     {
-        return Vector3.zero;
+        return tileController.GetTile(index.Item1, index.Item2);
     }
 
+    public void StageStart()
+    {
+        foreach(var hero in heroList)
+        {
+            hero.InitializeState();
+        }
+
+        foreach (var enemy in enemyList)
+        {
+            enemy.InitializeState();
+        }
+
+        gameStart = true;
+        
+    }
+
+    public void StageEnd()
+    {
+        gameStart = false;
+    }
     #endregion
 
     #region Methods : Private
@@ -88,6 +139,9 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
 
     private void PickupSequence()
     {
+        if (gameStart)
+            return;
+
         if (Input.GetMouseButtonDown(0) && pickup.PickupObject == null)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -101,6 +155,7 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
                     if(tile.type == TileType.Stage)
                     {
                         synergyController.DeleteSynergy(tile.StandingHero);
+                        heroList.Remove(tile.StandingHero);
                     }
                 }
             }
@@ -116,10 +171,13 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
                 {
                     tile.StandingHero = pickup.PickupObject.GetComponent<Hero>();
                     pickup.DropOff(tile.transform);
+                    Debug.Log($"TilePos : {tile.Index.Item1},{tile.Index.Item2}");
 
                     if(tile.type == TileType.Stage)
                     {
                         synergyController.AddSynergy(tile.StandingHero);
+                        tile.StandingHero.CurTile = tile;
+                        heroList.Add(tile.StandingHero);
                     }
                 }
             }
@@ -213,20 +271,20 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
         GameObject obj = prefabPool.PopPool(heroName);
         if (obj == null)
         {
-            obj = await ResourceManager.Instance.GetHeroRasources(heroName);
+            obj = await ResourceManager.Instance.GetAddressablesRasources(heroName);
 
             var heroData = ResourceManager.Instance.Heroes;
             while(heroData.MoveNext())
             {
                 if(heroData.Current.name == heroName)
                 {
-                    obj.GetComponent<Hero>().SetHeroData(heroData.Current);
+                    var hero = obj.GetComponent<Hero>();
+                    hero.SetHeroData(heroData.Current);
+                    hero.HeroTeam = Team.Friendly;
                     break;
                 }
             }
-
         }
-
         if (heroWatingRoom.AddHero(obj.GetComponent<Hero>()))
         {
             uI_Hero_Icon.IsSale = true;
@@ -236,6 +294,72 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
             prefabPool.PushPool(heroName, obj);
         }
 
+    }
+
+    public async void AddEnemy(string heroName, (int, int) position)
+    {
+        GameObject obj = prefabPool.PopPool(heroName);
+        if (obj == null)
+        {
+            obj = await ResourceManager.Instance.GetAddressablesRasources(heroName);
+
+            var heroData = ResourceManager.Instance.Heroes;
+            while (heroData.MoveNext())
+            {
+                if (heroData.Current.name == heroName)
+                {
+                    var enemy = obj.GetComponent<Hero>();
+                    enemy.SetHeroData(heroData.Current);
+                    enemy.HeroTeam = Team.Enemy;
+                    var tile = tileController.GetTile(position.Item1, position.Item2);
+                    enemy.CurTile = tile;
+                    tile.StandingHero = enemy;
+                    enemy.transform.position = tile.transform.position;
+
+                    enemyList.Add(enemy);
+                    break;
+                }
+            }
+
+        }
+    }
+
+    public void DeleteHero(Hero hero)
+    {
+        if (hero.HeroTeam == Team.Friendly)
+            heroList.Remove(hero);
+        else
+            enemyList.Remove(hero);
+
+        hero.CurTile.StandingHero = null;
+        hero.CurTile = null;
+        prefabPool.PushPool(hero.HeroData.name, hero.gameObject);
+    }
+
+    public async UniTask<GameObject> GetPrefabInPool(string name)
+    {
+        GameObject obj = prefabPool.PopPool(name);
+        if (obj == null)
+        {
+            obj = await ResourceManager.Instance.GetAddressablesRasources(name);
+        }
+
+        return obj;
+    }
+
+    public void PushPrefabPool(string name, GameObject gameObject)
+    {
+        prefabPool.PushPool(name, gameObject);
+    }
+
+    public void AddProjectile(Projectile projectile)
+    {
+        projectileController.AddProjectile(projectile);
+    }
+
+    public void DeleteProjectile(Projectile projectile)
+    {
+        projectileController.DeleteProjectile(projectile);
     }
     #endregion
 }

@@ -28,6 +28,7 @@ public abstract class Character : MonoBehaviour, IInitializer
         max_HeroState.Critical = charaterState.Critical;
         max_HeroState.gain_Attack_MP = charaterState.Gain_Attack_MP;
         max_HeroState.gain_Defense_MP = charaterState.Gain_Defense_MP;
+        max_HeroState.attackSpeed = charaterState.AttackSpeed;
     }
 
     public void InitializeState()

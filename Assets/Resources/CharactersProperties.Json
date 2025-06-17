@@ -8,7 +8,9 @@
             [
                 "Warrior",
                 "Shielder"
-            ]
+            ],
+            "projectile" : "Sword"
+
         },
         {
             "name" : "TT_Mage",
@@ -18,7 +20,8 @@
             [
                 "Magician",
                 "ClothArmor"
-            ]
+            ],
+            "projectile" : "Rock_A"
         },
         {
             "name" : "TT_Peasant",
@@ -28,7 +31,8 @@
             [
                 "Warrior",
                 "ClothArmor"
-            ]
+            ],
+            "projectile" : "Club"
         },
         {
             "name" : "TT_Archer",
@@ -38,7 +42,8 @@
             [
                 "Archer",
                 "ClothArmor"
-            ]
+            ],
+            "projectile" : "Arrow_A"
         },
         {
             "name" : "H1_Spearman",
@@ -48,7 +53,8 @@
             [
                 "Warrior",
                 "Shielder"
-            ]
+            ],
+            "projectile" : "Sword"
         },
         {
             "name" : "TT_Light_Infantry",
@@ -58,7 +64,8 @@
             [
                 "Warrior",
                 "Shielder"
-            ]
+            ],
+            "projectile" : "Sword"
         },
         {
             "name" : "TT_Priest",
@@ -68,7 +75,8 @@
             [
                 "Healer",
                 "ClothArmor"
-            ]
+            ],
+            "projectile" : "Club"
         },
         {
             "name" : "TT_Crossbowman",
@@ -78,7 +86,8 @@
             [
                 "Archer",
                 "ClothArmor"
-            ]
+            ],
+            "projectile" : "Arrow_B"
         },
         {
             "name" : "TT_Heavy_Infantry",
@@ -88,7 +97,8 @@
             [
                 "Warrior",
                 "HeavyArmor"
-            ]
+            ],
+            "projectile" : "Sword"
         },
         {
             "name" : "TT_HeavySwordman",
@@ -98,7 +108,8 @@
             [
                 "Warrior",
                 "Shielder"
-            ]
+            ],
+            "projectile" : "Sword"
         },
         {
             "name" : "TT_Scout",
@@ -108,7 +119,8 @@
             [
                 "Archer",
                 "ClothArmor"
-            ]
+            ],
+            "projectile" : "Arrow_B"
         },
         {
             "name" : "H2_Halberdier",
@@ -118,7 +130,8 @@
             [
                 "Warrior",
                 "HeavyArmor"
-            ]
+            ],
+            "projectile" : "Sword"
         },
         {
             "name" : "TT_Light_Cavalry",
@@ -128,7 +141,8 @@
             [
                 "Rider",
                 "HeavyArmor"
-            ]
+            ],
+            "projectile" : "Sword"
         },
         {
             "name" : "TT_HighPriest",
@@ -138,7 +152,8 @@
             [
                 "ClothArmor",
                 "Healer"
-            ]
+            ],
+            "projectile" : "Club"
         },
         {
             "name" : "TT_Heavy_Cavalry",
@@ -148,7 +163,8 @@
             [
                 "Rider",
                 "HeavyArmor"
-            ]
+            ],
+            "projectile" : "Sword"
         },
         {
             "name" : "TT_Paladin",
@@ -159,7 +175,8 @@
                 "Warrior",
                 "HeavyArmor",
                 "Healer"
-            ]
+            ],
+            "projectile" : "Hammer"
         },
         {
             "name" : "TT_Mounted_Mage",
@@ -170,7 +187,8 @@
                 "Rider",
                 "Magician",
                 "ClothArmor"
-            ]
+            ],
+            "projectile" : "Rock_A"
         },
         {
             "name" : "TT_Mounted_Priest",
@@ -181,7 +199,8 @@
                 "Rider",
                 "Healer",
                 "ClothArmor"
-            ]
+            ],
+            "projectile" : "Club"
         },
         {
             "name" : "TT_King",
@@ -192,7 +211,8 @@
                 "Warrior",
                 "HeavyArmor",
                 "Shielder"
-            ]
+            ],
+            "projectile" : "Sword"
         },
          {
             "name" : "TT_Mounted_Scout",
@@ -203,7 +223,8 @@
                 "Rider",
                 "ClothArmor",
                 "Archer"
-            ]
+            ],
+            "projectile" : "Arrow_B"
         },
          {
             "name" : "H4_Mounted_Knight",
@@ -214,7 +235,8 @@
                 "Warrior",
                 "HeavyArmor",
                 "Shielder"
-            ]
+            ],
+            "projectile" : "Sword"
         },
         {
             "name" : "TT_Mounted_King",
@@ -225,7 +247,8 @@
                 "Warrior",
                 "HeavyArmor",
                 "Shielder"
-            ]
+            ],
+            "projectile" : "Sword"
         },
         {
             "name" : "TT_Commander",
@@ -236,7 +259,8 @@
                 "Warrior",
                 "HeavyArmor",
                 "Shielder"
-            ]
+            ],
+            "projectile" : "Hammer"
         },
         {
             "name" : "TT_Mounted_Paladin",
@@ -247,7 +271,8 @@
                 "Rider",
                 "Healer",
                 "HeavyArmor"
-            ]
+            ],
+            "projectile" : "Hammer"
         }
      ]
 
