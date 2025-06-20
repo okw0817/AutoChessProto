@@ -8,16 +8,25 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
     [SerializeField]
     private PrefabPool prefabPool;
 
-private TileController tileController;
+    private SynergyController synergyController;
+    private TileController tileController;
     private HeroWatingRoom heroWatingRoom;
+    private HeroBehaviorController heroBehaviorController;
+    private ProjectileController projectileController;
+    private MergeHeroController mergeHeroController;
+    private PickUp pickup;
 
     private Dictionary<int, List<HeroData>> heroDic = new Dictionary<int, List<HeroData>>();
+    private List<Hero> enemyList = new List<Hero>();
+    private List<Hero> stageHeroList = new List<Hero>();
 
     private int curLevel = 1;
     private int requireExperience = 0;
     private int curExperience = 0;
     private int maxStoreLevel = 8;
     private int maxStoreList = 5;
+
+    private bool gameStart = false;
     #endregion
 
     #region Members : Properties
@@ -42,15 +51,29 @@ private TileController tileController;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            var tt = GetProbabilityLevel(curLevel++);
-            var list = GetStoreList(tt);
+        PickupSequence();
+    }
 
-            foreach(var item in list)
-            {
-                Debug.Log($"{item.level},{item.name}");
-            }
+    private void FixedUpdate()
+    {
+        if (!gameStart)
+            return;
+
+        heroBehaviorController.UpdateMove();
+        projectileController.UpdateMove();
+
+    }
+
+    private void Start()
+    {
+        var probabilities = GetProbabilityLevel(CurLevel);
+        var list = GetStoreList(probabilities);
+
+        var raw = 6;
+        var col = 0;
+        foreach(var hero in list)
+        {
+            AddEnemy(hero.name, (++col, raw));
         }
     }
     #endregion
@@ -58,8 +81,13 @@ private TileController tileController;
     #region Methods : Override
     public override void Init()
     {
+        pickup = new PickUp();
+        synergyController = new SynergyController();
+        projectileController = new ProjectileController();
         tileController = GetComponentInChildren<TileController>();
         heroWatingRoom = GetComponentInChildren<HeroWatingRoom>();
+        heroBehaviorController = new HeroBehaviorController(tileController, stageHeroList, enemyList);
+        mergeHeroController = new MergeHeroController(synergyController, stageHeroList);
         heroWatingRoom.Init();
 
         for(int i=1; i<= maxStoreList; ++i)
@@ -73,11 +101,31 @@ private TileController tileController;
     #endregion
 
     #region Methods : Public
-    public Vector3 GetTiltePosition(Vector3 pos)
+    public Tile GetTiltePosition((int, int)index)
     {
-        return Vector3.zero;
+        return tileController.GetTile(index.Item1, index.Item2);
     }
 
+    public void StageStart()
+    {
+        foreach(var hero in stageHeroList)
+        {
+            hero.InitializeState();
+        }
+
+        foreach (var enemy in enemyList)
+        {
+            enemy.InitializeState();
+        }
+
+        gameStart = true;
+        
+    }
+
+    public void StageEnd()
+    {
+        gameStart = false;
+    }
     #endregion
 
     #region Methods : Private
@@ -89,6 +137,72 @@ private TileController tileController;
             var hero = enumerator.Current;
             heroDic[hero.level].Add(hero);
         }
+    }
+
+    private void PickupSequence()
+    {
+        if (gameStart)
+            return;
+
+        if (Input.GetMouseButtonDown(0) && pickup.PickupObject == null)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Tile")))
+            {
+                Debug.Log("Pickup");
+                var tile = hit.transform.GetComponent<Tile>();
+                if (tile != null && tile.StandingHero != null)
+                {
+                    pickup.Pickup(tile.StandingHero.gameObject);
+                    if (tile.type == TileType.Stage)
+                    {
+                        DeleteHeroInController(tile.StandingHero);
+                    }
+                    tile.StandingHero = null;
+                }
+            }
+        }
+        else if (Input.GetMouseButtonUp(0) && pickup.PickupObject != null)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Tile")))
+            {
+                Debug.Log("Drop");
+                var tile = hit.transform.GetComponent<Tile>();
+                if (tile != null)
+                {
+                    tile.StandingHero = pickup.PickupObject.GetComponent<Hero>();
+                    pickup.DropOff(tile.transform);
+                    Debug.Log($"TilePos : {tile.Index.Item1},{tile.Index.Item2}");
+
+                    if(tile.type == TileType.Stage)
+                    {
+                        tile.StandingHero.CurTile = tile;
+                        AddHeroInController(tile.StandingHero);
+                    }
+                }
+            }
+        }
+
+        if(pickup.PickupObject != null)
+        {
+            var mousePosition = Input.mousePosition;
+            var screenPoint = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, 10.0f));
+            pickup.Attach(screenPoint);
+        }
+
+    }
+
+    private void AddHeroInController(Hero hero)
+    {
+        synergyController.AddSynergy(hero);
+        stageHeroList.Add(hero);
+    }
+
+    private void DeleteHeroInController(Hero hero)
+    {
+        synergyController.DeleteSynergy(hero);
+        stageHeroList.Remove(hero);
     }
     #endregion
 
@@ -170,18 +284,98 @@ private TileController tileController;
         GameObject obj = prefabPool.PopPool(heroName);
         if (obj == null)
         {
-            obj = await ResourceManager.Instance.GetHeroRasources(heroName);
+            obj = await ResourceManager.Instance.GetAddressablesRasources(heroName);
+
+            var heroData = ResourceManager.Instance.Heroes;
+            while(heroData.MoveNext())
+            {
+                if(heroData.Current.name == heroName)
+                {
+                    var hero = obj.GetComponent<Hero>();
+                    hero.SetHeroData(heroData.Current);
+                    hero.HeroTeam = Team.Friendly;
+                    hero.CurGrade = 1;
+                    break;
+                }
+            }
         }
 
-        if (heroWatingRoom.AddHero(obj))
+        var heroComponent = obj.GetComponent<Hero>();
+        if (heroWatingRoom.AddHero(heroComponent))
         {
             uI_Hero_Icon.IsSale = true;
+            mergeHeroController.AddHero(heroComponent);
         }
         else
         {
             prefabPool.PushPool(heroName, obj);
         }
+    }
 
+    public async void AddEnemy(string heroName, (int, int) position)
+    {
+        GameObject obj = prefabPool.PopPool(heroName);
+        if (obj == null)
+        {
+            obj = await ResourceManager.Instance.GetAddressablesRasources(heroName);
+
+            var heroData = ResourceManager.Instance.Heroes;
+            while (heroData.MoveNext())
+            {
+                if (heroData.Current.name == heroName)
+                {
+                    var enemy = obj.GetComponent<Hero>();
+                    enemy.SetHeroData(heroData.Current);
+                    enemy.HeroTeam = Team.Enemy;
+                    var tile = tileController.GetTile(position.Item1, position.Item2);
+                    enemy.CurTile = tile;
+                    tile.StandingHero = enemy;
+                    enemy.transform.position = tile.transform.position;
+
+                    enemyList.Add(enemy);
+                    break;
+                }
+            }
+
+        }
+    }
+
+    public void DeleteHero(Hero hero)
+    {
+        if (hero.HeroTeam == Team.Friendly)
+            stageHeroList.Remove(hero);
+        else
+            enemyList.Remove(hero);
+
+        hero.CurTile.StandingHero = null;
+        hero.CurTile = null;
+        prefabPool.PushPool(hero.HeroData.name, hero.gameObject);
+    }
+
+    public async UniTask<GameObject> GetPrefabInPool(string name)
+    {
+        GameObject obj = prefabPool.PopPool(name);
+        if (obj == null)
+        {
+            obj = await ResourceManager.Instance.GetAddressablesRasources(name);
+        }
+
+        return obj;
+    }
+
+    public void PushPrefabPool(string name, GameObject gameObject)
+    {
+        prefabPool.PushPool(name, gameObject);
+    }
+
+    public void AddProjectile(Projectile projectile)
+    {
+        projectileController.AddProjectile(projectile);
+    }
+
+    public void DeleteProjectile(Projectile projectile)
+    {
+        projectileController.DeleteProjectile(projectile);
     }
     #endregion
 }

@@ -13,6 +13,22 @@ public class HeroData
     public string icon;
     public int level;
     public string[] synergies;
+    public string projectile;
+}
+
+public struct HeroState
+{
+    public int HP;
+    public int MP;
+    public int Defense;
+    public int MagicDefense;
+    public int Damage;
+    public int MagicDamage;
+    public int AttackRange;
+    public int Critical;
+    public int gain_Attack_MP;
+    public int gain_Defense_MP;
+    public float attackSpeed;
 }
 #endregion
 
@@ -46,5 +62,20 @@ public class RequireExperienceData
 {
     public int level;
     public int requiringAmount;
+}
+#endregion
+
+#region Effect
+[System.Serializable]
+public class EffectContatiner
+{
+    public EffectData[] effects;
+}
+
+[System.Serializable]
+public class EffectData
+{
+    public string projectile;
+    public string effect;
 }
 #endregion

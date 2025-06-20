@@ -8,7 +8,9 @@
             [
                 "Warrior",
                 "Shielder"
-            ]
+            ],
+            "projectile" : "Sword"
+
         },
         {
             "name" : "TT_Mage",
@@ -18,7 +20,8 @@
             [
                 "Magician",
                 "ClothArmor"
-            ]
+            ],
+            "projectile" : "Rock_A"
         },
         {
             "name" : "TT_Peasant",
@@ -28,7 +31,8 @@
             [
                 "Warrior",
                 "ClothArmor"
-            ]
+            ],
+            "projectile" : "Club"
         },
         {
             "name" : "TT_Archer",
@@ -38,7 +42,8 @@
             [
                 "Archer",
                 "ClothArmor"
-            ]
+            ],
+            "projectile" : "Arrow_A"
         },
         {
             "name" : "H1_Spearman",
@@ -48,7 +53,19 @@
             [
                 "Warrior",
                 "Shielder"
-            ]
+            ],
+            "projectile" : "Sword"
+        },
+        {
+            "name" : "TT_Light_Infantry",
+            "icon" : "TT_Light_Infantry_Icon",
+	        "level" : 1,
+            "synergies" :
+            [
+                "Warrior",
+                "Shielder"
+            ],
+            "projectile" : "Sword"
         },
         {
             "name" : "TT_Priest",
@@ -58,7 +75,8 @@
             [
                 "Healer",
                 "ClothArmor"
-            ]
+            ],
+            "projectile" : "Club"
         },
         {
             "name" : "TT_Crossbowman",
@@ -68,7 +86,8 @@
             [
                 "Archer",
                 "ClothArmor"
-            ]
+            ],
+            "projectile" : "Arrow_B"
         },
         {
             "name" : "TT_Heavy_Infantry",
@@ -78,7 +97,8 @@
             [
                 "Warrior",
                 "HeavyArmor"
-            ]
+            ],
+            "projectile" : "Sword"
         },
         {
             "name" : "TT_HeavySwordman",
@@ -88,18 +108,19 @@
             [
                 "Warrior",
                 "Shielder"
-            ]
+            ],
+            "projectile" : "Sword"
         },
         {
-            "name" : "TT_Paladin",
-            "icon" : "TT_Paladin_Icon",
+            "name" : "TT_Scout",
+            "icon" : "TT_Scout_Icon",
 	        "level" : 2,
             "synergies" :
             [
-                "Warrior",
-                "HeavyArmor",
-                "Healer"
-            ]
+                "Archer",
+                "ClothArmor"
+            ],
+            "projectile" : "Arrow_B"
         },
         {
             "name" : "H2_Halberdier",
@@ -109,7 +130,8 @@
             [
                 "Warrior",
                 "HeavyArmor"
-            ]
+            ],
+            "projectile" : "Sword"
         },
         {
             "name" : "TT_Light_Cavalry",
@@ -119,7 +141,8 @@
             [
                 "Rider",
                 "HeavyArmor"
-            ]
+            ],
+            "projectile" : "Sword"
         },
         {
             "name" : "TT_HighPriest",
@@ -127,9 +150,10 @@
 	        "level" : 2,
             "synergies" :
             [
-                "Rider",
+                "ClothArmor",
                 "Healer"
-            ]
+            ],
+            "projectile" : "Club"
         },
         {
             "name" : "TT_Heavy_Cavalry",
@@ -139,7 +163,8 @@
             [
                 "Rider",
                 "HeavyArmor"
-            ]
+            ],
+            "projectile" : "Sword"
         },
         {
             "name" : "TT_Paladin",
@@ -147,10 +172,11 @@
 	        "level" : 3,
             "synergies" :
             [
-                "Rider",
+                "Warrior",
                 "HeavyArmor",
                 "Healer"
-            ]
+            ],
+            "projectile" : "Hammer"
         },
         {
             "name" : "TT_Mounted_Mage",
@@ -159,8 +185,22 @@
             "synergies" :
             [
                 "Rider",
-                "Magician"
-            ]
+                "Magician",
+                "ClothArmor"
+            ],
+            "projectile" : "Rock_A"
+        },
+        {
+            "name" : "TT_Mounted_Priest",
+            "icon" : "TT_Mounted_Priest_Icon",
+	        "level" : 3,
+            "synergies" :
+            [
+                "Rider",
+                "Healer",
+                "ClothArmor"
+            ],
+            "projectile" : "Club"
         },
         {
             "name" : "TT_King",
@@ -171,7 +211,8 @@
                 "Warrior",
                 "HeavyArmor",
                 "Shielder"
-            ]
+            ],
+            "projectile" : "Sword"
         },
          {
             "name" : "TT_Mounted_Scout",
@@ -179,21 +220,23 @@
 	        "level" : 3,
             "synergies" :
             [
-                "Warrior",
-                "HeavyArmor",
+                "Rider",
+                "ClothArmor",
                 "Archer"
-            ]
+            ],
+            "projectile" : "Arrow_B"
         },
          {
             "name" : "H4_Mounted_Knight",
             "icon" : "H4_Mounted_Knight_Icon",
-	        "level" : 3,
+	        "level" : 4,
             "synergies" :
             [
                 "Warrior",
                 "HeavyArmor",
                 "Shielder"
-            ]
+            ],
+            "projectile" : "Sword"
         },
         {
             "name" : "TT_Mounted_King",
@@ -204,11 +247,33 @@
                 "Warrior",
                 "HeavyArmor",
                 "Shielder"
-            ]
+            ],
+            "projectile" : "Sword"
+        },
+        {
+            "name" : "TT_Commander",
+            "icon" : "TT_Commander_Icon",
+	        "level" : 4,
+            "synergies" :
+            [
+                "Warrior",
+                "HeavyArmor",
+                "Shielder"
+            ],
+            "projectile" : "Hammer"
+        },
+        {
+            "name" : "TT_Mounted_Paladin",
+            "icon" : "TT_Mounted_Paladin_Icon",
+	        "level" : 4,
+            "synergies" :
+            [
+                "Rider",
+                "Healer",
+                "HeavyArmor"
+            ],
+            "projectile" : "Hammer"
         }
-	
-	
-	
      ]
 
 }

@@ -4388,7 +4388,6 @@ GameObject:
   - component: {fileID: 455156}
   - component: {fileID: 9500222}
   - component: {fileID: 5518782925411596247}
-  - component: {fileID: 7344935102847510127}
   m_Layer: 0
   m_Name: H1_Spearman
   m_TagString: Untagged
@@ -4507,18 +4506,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charaterState: {fileID: 11400000, guid: 7f300b24425893942ac995b19c297a23, type: 2}
---- !u!114 &7344935102847510127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 123088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4a57ed2f4e65734b9d0b796367f579c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  synergyData:
+  - {fileID: 11400000, guid: 7f11f36025e7c7942aa33da5527ff2d1, type: 2}
+  - {fileID: 11400000, guid: 587d6bd3dd6d74540867c6b921683c6b, type: 2}
+  colorData: {fileID: 11400000, guid: 85d1bc91d43dfa4419f52eb346a12e2a, type: 2}
+  meshRenderer: {fileID: 13799794}
 --- !u!1 &123120
 GameObject:
   m_ObjectHideFlags: 0

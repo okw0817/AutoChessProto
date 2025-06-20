@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c34c95014cf11f24e9ed617b497ff7a9, type: 3}
+  m_Name: Peasant_Data
+  m_EditorClassIdentifier: 
+  maxHP: 450
+  maxMP: 100
+  defense: 0
+  magicDefense: 0
+  damage: 10
+  attackSpeed: 1
+  magicDamage: 0
+  attackRange: 1
+  critical: 5
+  gain_Attack_MP: 5
+  gain_Defense_MP: 1
+  synergies: 

@@ -8198,7 +8198,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a03a0214a80bd614dba8541e16e52624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charaterState: {fileID: 0}
+  charaterState: {fileID: 11400000, guid: 8960b0d62792a0248a39a6f359b2c82b, type: 2}
+  synergyData:
+  - {fileID: 11400000, guid: 7f11f36025e7c7942aa33da5527ff2d1, type: 2}
+  - {fileID: 11400000, guid: 5457381bd7e841348bd6c8d5d677a35c, type: 2}
+  colorData: {fileID: 11400000, guid: 85d1bc91d43dfa4419f52eb346a12e2a, type: 2}
+  meshRenderer: {fileID: 13711306}
 --- !u!1 &150534
 GameObject:
   m_ObjectHideFlags: 0

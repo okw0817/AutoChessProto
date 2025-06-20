@@ -1,0 +1,28 @@
+{
+    "effects": [
+        {
+            "projectile" : "Arrow_A",
+            "effect" : "Effect_Blood"
+        },
+        {
+            "projectile" : "Sword",
+            "effect" : "Effect_Blood"
+        },
+        {
+            "projectile" : "Club",
+            "effect" : "Effect_Blood2"
+        },
+        {
+            "projectile" : "RockA",
+            "effect" : "Effect_Blood2"
+        },
+        {
+            "projectile" : "Hammer",
+            "effect" : "Effect_Blood3"
+        },
+        {
+            "projectile" : "Rock_A",
+            "effect" : "Effect_Blood3"
+        }
+    ]
+}

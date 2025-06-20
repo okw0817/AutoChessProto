@@ -5,11 +5,19 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     #region Members : Private
-    private bool hasHero = false;
+    [SerializeField]
+    private Hero standingHero = null;
+    private (int, int) index;
     #endregion
 
     #region Members : Property
-    public bool HasHero { get => hasHero; set => hasHero = value;}
+    public (int, int) Index { get => index; }
+    public Hero StandingHero { get => standingHero; set => standingHero = value;}
+    public TileType type { get; set; }
+    #endregion
+
+    #region Methods : Public
+    public void SetIndex((int, int) index) { this.index = index; }
     #endregion
 
 }

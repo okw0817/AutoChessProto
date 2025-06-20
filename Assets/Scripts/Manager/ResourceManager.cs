@@ -10,6 +10,7 @@ public class ResourceManager : ManagerBase<ResourceManager>
     private List<HeroData> heroData = new List<HeroData>();
     private Dictionary<int, ProbabilityData> ProbabilityData = new Dictionary<int, ProbabilityData>();
     private Dictionary<int, int> ExperienceData = new Dictionary<int, int>();
+    private Dictionary<string, string> EffectDataDic = new Dictionary<string, string>();
     #endregion
 
     #region Members : Properties
@@ -25,6 +26,8 @@ public class ResourceManager : ManagerBase<ResourceManager>
 
         await Addressables.InitializeAsync();
         await Addressables.LoadResourceLocationsAsync(AddressablesLabel.Hero.ToString());
+        await Addressables.LoadResourceLocationsAsync(AddressablesLabel.Projectile.ToString());
+        await Addressables.LoadResourceLocationsAsync(AddressablesLabel.Effect.ToString());
 
         //Characters
         var asset = Readfile(ResorucesName.CharactersProperties);
@@ -53,6 +56,15 @@ public class ResourceManager : ManagerBase<ResourceManager>
         {
             ExperienceData.Add(requireExperience.level, requireExperience.requiringAmount);
         }
+
+        //effects
+        asset = Readfile(ResorucesName.ProjectileEffect);
+        EffectContatiner effectContatiner = JsonUtility.FromJson<EffectContatiner>(asset.ToString());
+
+        foreach (var effect in effectContatiner.effects)
+        {
+            EffectDataDic.Add(effect.projectile, effect.effect);
+        }
     }
     #endregion
 
@@ -70,9 +82,17 @@ public class ResourceManager : ManagerBase<ResourceManager>
         return ExperienceData[level];
     }
 
-    public async UniTask<GameObject> GetHeroRasources(string heroName)
+    public async UniTask<GameObject> GetAddressablesRasources(string AddressablesName)
     {
-        return await Addressables.InstantiateAsync(heroName);
+        return await Addressables.InstantiateAsync(AddressablesName);
+    }
+
+    public string GetEffectName(string projectile)
+    {
+        if (EffectDataDic.ContainsKey(projectile))
+            return EffectDataDic[projectile];
+
+        return null;
     }
     #endregion
 

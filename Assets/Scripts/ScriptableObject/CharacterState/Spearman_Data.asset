@@ -17,6 +17,8 @@ MonoBehaviour:
   defense: 5
   magicDefense: 5
   damage: 15
+  attackSpeed: 1
+  magicDamage: 0
   attackRange: 1
   critical: 5
   gain_Attack_MP: 5

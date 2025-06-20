@@ -10,7 +10,8 @@ public class HorizontalTileContainer : MonoBehaviour, IInitializer
     #endregion
 
     #region Members : Property
-    public IEnumerator Tiles { get => tiles.GetEnumerator(); }
+    public IEnumerator<Tile> Tiles { get => tiles.GetEnumerator(); }
+    public TileType TileType { get; set; }
     #endregion
 
     #region Methods : Interface
@@ -20,6 +21,7 @@ public class HorizontalTileContainer : MonoBehaviour, IInitializer
 
         foreach (var tile in arrTile)
         {
+            tile.type = TileType;
             tiles.Add(tile);
         }
 
@@ -35,11 +37,19 @@ public class HorizontalTileContainer : MonoBehaviour, IInitializer
     {
         foreach(var tile in tiles)
         {
-            if (!tile.HasHero)
+            if (tile.StandingHero == null)
                 return tile;
         }
 
         return null;
+    }
+
+    public Tile GethorizontalTile(int horizontalIndex)
+    {
+        if (horizontalIndex < 0 || horizontalIndex > tiles.Count)
+            return null;
+
+        return tiles[horizontalIndex];
     }
     #endregion
 }

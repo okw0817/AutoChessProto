@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Particles
+  m_EditorClassIdentifier: 
+  m_GroupName: Particles
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 9645884b4ebb7e542b7836b49bd6a7b2
+  m_SerializeEntries:
+  - m_GUID: a6ff47e8addfef94381b937a98787e71
+    m_Address: Effect_Blood
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Particle
+  - m_GUID: fdde1075589c4f84d9fe142f1652a6fc
+    m_Address: Effect_Blood2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Particle
+  - m_GUID: e43900158898613448bfeb40a408a2b6
+    m_Address: Effect_Blood3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Particle
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 8138524ce80a47446a65d259016c613a, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 0fa4792e1716efa4f858893a7bd9d7de, type: 2}
+    - {fileID: 11400000, guid: b02fe993794cc694fad17530f3900cad, type: 2}

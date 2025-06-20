@@ -18,6 +18,20 @@ public class UI_Synergy_Item : MonoBehaviour
 
     [SerializeField]
     private ColorObjectable colorObjectable;
+
+    private int count = 0;
+    #endregion
+
+    #region Members : Property
+    public int Count
+    {
+        get => count;
+        set
+        {
+            count = value;
+            ActiveSynergy();
+        }
+    }
     #endregion
 
     #region Methods : Public
@@ -31,12 +45,32 @@ public class UI_Synergy_Item : MonoBehaviour
         text_Name.text = name;
     }
 
-    public void ActiveSynergy(int count)
+    public void ActiveSynergy()
     {
         foreach(var tmp in synergies_count)
         {
             tmp.color = colorObjectable.SynergyInActive;
         }
+        text_Name.color = colorObjectable.SynergyInActive;
+
+        if (count < 2)
+            return;
+
+        synergies_count[(count-1)/2].color = colorObjectable.SynergyActive;
+        text_Name.color = colorObjectable.SynergyActive;
     }
+
+    public void SetParent(Transform parent)
+    {
+        this.transform.SetParent(parent, true);
+    }
+
+    public bool isActiveSynergy()
+    {
+        return count >= 2 ? true : false;
+    }
+    #endregion
+
+    #region Methods : Private
     #endregion
 }

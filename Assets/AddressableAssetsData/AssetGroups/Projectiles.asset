@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Projectiles
+  m_EditorClassIdentifier: 
+  m_GroupName: Projectiles
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 6809d72b64686f045887552a56795c35
+  m_SerializeEntries:
+  - m_GUID: 8575a7316783eb84ab59f967ee32b264
+    m_Address: Rock_A
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Projectile
+  - m_GUID: 394231349f6116f458264b3124731d45
+    m_Address: Arrow_B
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Projectile
+  - m_GUID: 008a5f0214046bd42afe326a808548af
+    m_Address: Arrow_A
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Projectile
+  - m_GUID: ed2e59701760eab439649472a65a1d9c
+    m_Address: Club
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Projectile
+  - m_GUID: 671a34efdbe713e4a81c460b5574639e
+    m_Address: Hammer
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Projectile
+  - m_GUID: a6be4e10e53675941a1c3377fc09f408
+    m_Address: Sword
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Projectile
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 8138524ce80a47446a65d259016c613a, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 35085f00906fa2749a552acd4b09e55b, type: 2}
+    - {fileID: 11400000, guid: 2e44c7bacb9fddf45bf06c42d37fee54, type: 2}
