@@ -9,9 +9,17 @@ public class Hero : Character, IAttack, IAttacked, IMovable
     #region Members : private
     private HeroData heroData;
     private int[] AmountArr = {1, -1};
+    [SerializeField]
+    private int curGrade = 1;
 
     [SerializeField]
     private List<SynergyObjectable> synergyData;
+
+    [SerializeField]
+    private ColorObjectable colorData;
+
+    [SerializeField]
+    private SkinnedMeshRenderer meshRenderer;
 
     private Tile curTile;
     private Tile nextTile;
@@ -26,12 +34,23 @@ public class Hero : Character, IAttack, IAttacked, IMovable
     public Tile CurTile { get => curTile; set => curTile = value; }
     public Hero TargetHero { get => targetHero; set => targetHero = value; }
 
+    public int CurGrade { 
+        get => curGrade;
+        set
+        {
+            curGrade = value;
+            SetGradeState(curGrade);
+        }
+    }
     public Team HeroTeam { get; set; }
     #endregion
 
     #region Methods : Mono
     private void Awake()
     {
+        var box = GetComponent<BoxCollider>();
+        if (box == null) gameObject.AddComponent<BoxCollider>();
+
         Init();
     }
     #endregion
@@ -41,12 +60,16 @@ public class Hero : Character, IAttack, IAttacked, IMovable
     {
         isMoving = false;
         isAttackWating = false;
-        var box = GetComponent<BoxCollider>();
-        if (box == null) gameObject.AddComponent<BoxCollider>();
+        
         foreach (var synergy in synergyData)
         {
             synergy.Init();
         }
+
+        float rate = 1.0f;
+
+        if (curGrade == 2) rate = 1.5f;
+        else if (curGrade == 3) rate = 2.0f;
 
         base.Init();
     }
@@ -55,6 +78,10 @@ public class Hero : Character, IAttack, IAttacked, IMovable
     #region Methods : Interface
     public async void Attack(Character target, int damage)
     {
+        Vector3 direction = (targetHero.transform.position - transform.position).normalized;
+        Quaternion rotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 360.0f * Time.deltaTime);
+
         if (isAttackWating)
             return;
 
@@ -124,8 +151,11 @@ public class Hero : Character, IAttack, IAttacked, IMovable
         if(!isMoving && nextTile == null)
         {
             nextTile = GetNextTile();
-            curTile.StandingHero = null;
-            nextTile.StandingHero = this;
+            if(nextTile != null)
+            {
+                curTile.StandingHero = null;
+                nextTile.StandingHero = this;
+            }
         }
         else
         {
@@ -236,6 +266,32 @@ public class Hero : Character, IAttack, IAttacked, IMovable
             return false;
         else
             return true;
+    }
+
+    private void SetGradeState(int grade)
+    {
+        var mat = new Material(meshRenderer.material);
+        mat.color = colorData.GetHeroColor(grade);
+        meshRenderer.material = mat;
+
+        float rate = 0.0f;
+        switch(grade)
+        {
+            case 1:
+                rate = 1.0f;
+                break;
+            case 2:
+                rate = 1.5f;
+                break;
+            case 3:
+                rate = 2.0f;
+                break;
+        }
+
+        max_HeroState.HP = (int)(max_HeroState.HP * rate);
+        max_HeroState.Defense = (int)(max_HeroState.Defense * rate);
+        max_HeroState.MagicDefense = (int)(max_HeroState.MagicDefense * rate);
+        max_HeroState.MagicDamage = (int)(max_HeroState.MagicDamage * rate);
     }
     #endregion
 

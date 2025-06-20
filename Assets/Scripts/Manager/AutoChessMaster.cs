@@ -13,11 +13,12 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
     private HeroWatingRoom heroWatingRoom;
     private HeroBehaviorController heroBehaviorController;
     private ProjectileController projectileController;
+    private MergeHeroController mergeHeroController;
     private PickUp pickup;
 
     private Dictionary<int, List<HeroData>> heroDic = new Dictionary<int, List<HeroData>>();
     private List<Hero> enemyList = new List<Hero>();
-    private List<Hero> heroList = new List<Hero>();
+    private List<Hero> stageHeroList = new List<Hero>();
 
     private int curLevel = 1;
     private int requireExperience = 0;
@@ -85,7 +86,8 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
         projectileController = new ProjectileController();
         tileController = GetComponentInChildren<TileController>();
         heroWatingRoom = GetComponentInChildren<HeroWatingRoom>();
-        heroBehaviorController = new HeroBehaviorController(tileController, heroList, enemyList);
+        heroBehaviorController = new HeroBehaviorController(tileController, stageHeroList, enemyList);
+        mergeHeroController = new MergeHeroController(synergyController, stageHeroList);
         heroWatingRoom.Init();
 
         for(int i=1; i<= maxStoreList; ++i)
@@ -106,7 +108,7 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
 
     public void StageStart()
     {
-        foreach(var hero in heroList)
+        foreach(var hero in stageHeroList)
         {
             hero.InitializeState();
         }
@@ -152,11 +154,11 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
                 if (tile != null && tile.StandingHero != null)
                 {
                     pickup.Pickup(tile.StandingHero.gameObject);
-                    if(tile.type == TileType.Stage)
+                    if (tile.type == TileType.Stage)
                     {
-                        synergyController.DeleteSynergy(tile.StandingHero);
-                        heroList.Remove(tile.StandingHero);
+                        DeleteHeroInController(tile.StandingHero);
                     }
+                    tile.StandingHero = null;
                 }
             }
         }
@@ -175,9 +177,8 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
 
                     if(tile.type == TileType.Stage)
                     {
-                        synergyController.AddSynergy(tile.StandingHero);
                         tile.StandingHero.CurTile = tile;
-                        heroList.Add(tile.StandingHero);
+                        AddHeroInController(tile.StandingHero);
                     }
                 }
             }
@@ -190,6 +191,18 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
             pickup.Attach(screenPoint);
         }
 
+    }
+
+    private void AddHeroInController(Hero hero)
+    {
+        synergyController.AddSynergy(hero);
+        stageHeroList.Add(hero);
+    }
+
+    private void DeleteHeroInController(Hero hero)
+    {
+        synergyController.DeleteSynergy(hero);
+        stageHeroList.Remove(hero);
     }
     #endregion
 
@@ -281,19 +294,22 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
                     var hero = obj.GetComponent<Hero>();
                     hero.SetHeroData(heroData.Current);
                     hero.HeroTeam = Team.Friendly;
+                    hero.CurGrade = 1;
                     break;
                 }
             }
         }
-        if (heroWatingRoom.AddHero(obj.GetComponent<Hero>()))
+
+        var heroComponent = obj.GetComponent<Hero>();
+        if (heroWatingRoom.AddHero(heroComponent))
         {
             uI_Hero_Icon.IsSale = true;
+            mergeHeroController.AddHero(heroComponent);
         }
         else
         {
             prefabPool.PushPool(heroName, obj);
         }
-
     }
 
     public async void AddEnemy(string heroName, (int, int) position)
@@ -327,7 +343,7 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
     public void DeleteHero(Hero hero)
     {
         if (hero.HeroTeam == Team.Friendly)
-            heroList.Remove(hero);
+            stageHeroList.Remove(hero);
         else
             enemyList.Remove(hero);
 

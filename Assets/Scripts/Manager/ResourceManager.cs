@@ -82,9 +82,9 @@ public class ResourceManager : ManagerBase<ResourceManager>
         return ExperienceData[level];
     }
 
-    public async UniTask<GameObject> GetAddressablesRasources(string heroName)
+    public async UniTask<GameObject> GetAddressablesRasources(string AddressablesName)
     {
-        return await Addressables.InstantiateAsync(heroName);
+        return await Addressables.InstantiateAsync(AddressablesName);
     }
 
     public string GetEffectName(string projectile)

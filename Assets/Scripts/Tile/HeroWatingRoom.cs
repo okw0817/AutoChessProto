@@ -32,6 +32,7 @@ public class HeroWatingRoom : MonoBehaviour, IInitializer
         {
             hero.transform.position = tile.transform.position;
             tile.StandingHero = hero;
+            hero.CurTile = tile;
             return true;
         }
     }

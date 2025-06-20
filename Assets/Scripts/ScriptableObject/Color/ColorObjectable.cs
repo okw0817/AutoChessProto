@@ -13,5 +13,18 @@ public class ColorObjectable : ScriptableObject
     [SerializeField]
     private Color synergyInActive;
     public Color SynergyInActive { get { return synergyInActive; } }
+
+    [SerializeField]
+    private List<Color> heroColor;
+    #endregion
+
+    #region Methods
+    public Color GetHeroColor(int grade)
+    {
+        if (grade > heroColor.Count)
+            return heroColor[0];
+
+        return heroColor[grade - 1];
+    }
     #endregion
 }

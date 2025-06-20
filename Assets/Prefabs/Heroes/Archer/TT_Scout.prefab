@@ -13771,6 +13771,8 @@ MonoBehaviour:
   synergyData:
   - {fileID: 11400000, guid: 6db65a68794385d4c86a8d49f010b10f, type: 2}
   - {fileID: 11400000, guid: ebac9d0d572c2de4781c841ba0052047, type: 2}
+  colorData: {fileID: 11400000, guid: 85d1bc91d43dfa4419f52eb346a12e2a, type: 2}
+  meshRenderer: {fileID: 13778228}
 --- !u!1 &177824
 GameObject:
   m_ObjectHideFlags: 0

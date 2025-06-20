@@ -80,12 +80,18 @@ public class Projectile : MonoBehaviour, IInitializer, IMovable
         this.damage.Item2 = magicDamage;
     }
 
-    public void Hit(Hero target, (int, int) damage)
+    public async void Hit(Hero target, (int, int) damage)
     {
         target.Attacked(damage.Item1);
         target.Attacked(damage.Item2);
+
         AutoChessMaster.Instance.DeleteProjectile(this);
         AutoChessMaster.Instance.PushPrefabPool(projectileName, this.gameObject);
+
+        string effectName = ResourceManager.Instance.GetEffectName(ProjectileName);
+        var effect = await AutoChessMaster.Instance.GetPrefabInPool(effectName);
+        effect.transform.position = target.transform.position;
+        effect.GetComponent<EffectBase>().PlayParticle();
         this.target = null;
     }
     #endregion

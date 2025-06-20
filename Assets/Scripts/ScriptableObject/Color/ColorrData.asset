@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   synergyActive: {r: 1, g: 1, b: 1, a: 1}
   synergyInActive: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
+  heroColor:
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 1, b: 0, a: 1}
+  - {r: 1, g: 0, b: 0, a: 1}
