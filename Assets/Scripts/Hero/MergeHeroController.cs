@@ -8,6 +8,10 @@ public class MergeHeroController
     private SynergyController synergyController;
     private Dictionary<string, List<Hero>> spawnHeroList = new Dictionary<string, List<Hero>>();
     private List<Hero> heroList;
+    #endregion
+
+    #region Members : Property
+    public Dictionary<string, List<Hero>>.Enumerator heroes { get => spawnHeroList.GetEnumerator(); }
 
     #endregion
 

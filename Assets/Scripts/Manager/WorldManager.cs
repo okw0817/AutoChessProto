@@ -8,7 +8,7 @@ public class WorldManager : ManagerBase<WorldManager>, IState<WorldState>
     #region Members : Property
     public WorldState State { 
         get => state;
-        set
+        set 
         {
             if (value == state)
                 return;

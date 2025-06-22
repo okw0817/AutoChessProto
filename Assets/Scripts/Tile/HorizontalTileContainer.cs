@@ -46,7 +46,7 @@ public class HorizontalTileContainer : MonoBehaviour, IInitializer
 
     public Tile GethorizontalTile(int horizontalIndex)
     {
-        if (horizontalIndex < 0 || horizontalIndex > tiles.Count)
+        if (horizontalIndex < 0 || horizontalIndex >= tiles.Count)
             return null;
 
         return tiles[horizontalIndex];

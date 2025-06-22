@@ -31,12 +31,14 @@ public static class ResorucesName
     public static readonly string RequireExperiences = "RequireExperiences";
     public static readonly string Synergy = "Synergy";
     public static readonly string ProjectileEffect = "Effects";
+    public static readonly string Rounds = "Rounds";
+    public static readonly string UI_HeroState = "UI_HeroState";
     #endregion
 }
 #endregion
 
 #region Addressabels
-public enum AddressablesLabel { None, Hero, Effect, Projectile }
+public enum AddressablesLabel { None, Hero, Effect, Projectile, UI }
 #endregion
 
 #region Tile

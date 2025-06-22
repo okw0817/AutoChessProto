@@ -14,6 +14,8 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
     private HeroBehaviorController heroBehaviorController;
     private ProjectileController projectileController;
     private MergeHeroController mergeHeroController;
+    private RoundController roundController;
+    private HeroUIController heroUIController;
     private PickUp pickup;
 
     private Dictionary<int, List<HeroData>> heroDic = new Dictionary<int, List<HeroData>>();
@@ -56,25 +58,25 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
 
     private void FixedUpdate()
     {
+        if(mergeHeroController != null && heroUIController != null)
+        {
+            var enumerator = mergeHeroController.heroes;
+            while (enumerator.MoveNext())
+            {
+                heroUIController.UpdateHeroUI(enumerator.Current.Value.GetEnumerator(), enemyList.GetEnumerator());
+            }
+        }
+
         if (!gameStart)
             return;
 
         heroBehaviorController.UpdateMove();
         projectileController.UpdateMove();
-
     }
 
     private void Start()
     {
-        var probabilities = GetProbabilityLevel(CurLevel);
-        var list = GetStoreList(probabilities);
-
-        var raw = 6;
-        var col = 0;
-        foreach(var hero in list)
-        {
-            AddEnemy(hero.name, (++col, raw));
-        }
+        roundController.SetNextRound();
     }
     #endregion
 
@@ -83,11 +85,14 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
     {
         pickup = new PickUp();
         synergyController = new SynergyController();
-        projectileController = new ProjectileController();
+        projectileController = new ProjectileController();    
         tileController = GetComponentInChildren<TileController>();
         heroWatingRoom = GetComponentInChildren<HeroWatingRoom>();
         heroBehaviorController = new HeroBehaviorController(tileController, stageHeroList, enemyList);
         mergeHeroController = new MergeHeroController(synergyController, stageHeroList);
+        heroUIController = new HeroUIController(prefabPool);
+        roundController = new RoundController(tileController, stageHeroList, enemyList);
+        roundController.Init();
         heroWatingRoom.Init();
 
         for(int i=1; i<= maxStoreList; ++i)
@@ -108,23 +113,22 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
 
     public void StageStart()
     {
-        foreach(var hero in stageHeroList)
-        {
-            hero.InitializeState();
-        }
-
-        foreach (var enemy in enemyList)
-        {
-            enemy.InitializeState();
-        }
-
         gameStart = true;
-        
+        roundController.SaveHeroPosition();     
     }
 
     public void StageEnd()
     {
         gameStart = false;
+
+        roundController.SetNextRound();
+
+        foreach (var hero in stageHeroList)
+        {
+            hero.InitializeState();
+        }
+
+        RaiseExperience(3);
     }
     #endregion
 
@@ -169,19 +173,28 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
             {
                 Debug.Log("Drop");
                 var tile = hit.transform.GetComponent<Tile>();
-                if (tile != null)
+                if (tile != null && tile.StandingHero == null)
                 {
                     tile.StandingHero = pickup.PickupObject.GetComponent<Hero>();
+
+                    if (tile.StandingHero.HeroTeam == Team.Enemy)
+                        return;
+
                     pickup.DropOff(tile.transform);
                     Debug.Log($"TilePos : {tile.Index.Item1},{tile.Index.Item2}");
 
-                    if(tile.type == TileType.Stage)
+                    if(tile.type == TileType.Stage )
                     {
                         tile.StandingHero.CurTile = tile;
                         AddHeroInController(tile.StandingHero);
                     }
                 }
             }
+            else if(Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Tile")))
+            {
+
+            }
+
         }
 
         if(pickup.PickupObject != null)
@@ -248,15 +261,18 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
             int percent = 0;
 
             percent += probabilityData.one;
+            int maxCount = 0;
             if (percent >= random)
             {
-                data.Add(heroDic[1][Random.Range(0, 3)]);
+                maxCount = heroDic[1].Count;
+                data.Add(heroDic[1][Random.Range(0, maxCount)]);
                 continue;
             }
 
             percent += probabilityData.two;
             if (percent >= random)
             {
+                maxCount = heroDic[2].Count;
                 data.Add(heroDic[2][Random.Range(0, 3)]);
                 continue;
             }
@@ -264,6 +280,7 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
 
             if (percent >= random)
             {
+                maxCount = heroDic[3].Count;
                 data.Add(heroDic[3][Random.Range(0, 3)]);
                 continue;
             }
@@ -271,6 +288,7 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
 
             if (percent >= random)
             {
+                maxCount = heroDic[4].Count;
                 data.Add(heroDic[4][Random.Range(0, 0)]);
                 continue;
             }
@@ -305,6 +323,11 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
         {
             uI_Hero_Icon.IsSale = true;
             mergeHeroController.AddHero(heroComponent);
+
+            var ui = await heroUIController.GetUI<UI_HeroState>(ResorucesName.UI_HeroState);
+            ui.DivisionTeamColor(Color.green);
+            heroComponent.UI_HeroState = ui;
+            heroComponent.InitializeState();
         }
         else
         {
@@ -312,7 +335,7 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
         }
     }
 
-    public async void AddEnemy(string heroName, (int, int) position)
+    public async void AddEnemy(string heroName, (int, int) position, int grade)
     {
         GameObject obj = prefabPool.PopPool(heroName);
         if (obj == null)
@@ -331,6 +354,14 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
                     enemy.CurTile = tile;
                     tile.StandingHero = enemy;
                     enemy.transform.position = tile.transform.position;
+                    enemy.transform.rotation = Quaternion.Euler(new Vector3(0,180,0));
+                    enemy.CurGrade = grade;
+
+                    var ui = await heroUIController.GetUI<UI_HeroState>(ResorucesName.UI_HeroState);
+                    ui.DivisionTeamColor(Color.red);
+                    enemy.UI_HeroState = ui;
+
+                    enemy.InitializeState();
 
                     enemyList.Add(enemy);
                     break;
@@ -350,6 +381,19 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
         hero.CurTile.StandingHero = null;
         hero.CurTile = null;
         prefabPool.PushPool(hero.HeroData.name, hero.gameObject);
+        heroUIController.PushPool(ResorucesName.UI_HeroState, hero.UI_HeroState.gameObject);
+        hero.UI_HeroState = null;
+
+        if (enemyList.Count == 0)
+            StageEnd();
+
+    }
+
+    public void DieHero(Hero hero)
+    {
+        roundController.AddDeadList(hero);
+        hero.CurTile.StandingHero = null;
+        hero.CurTile = null;
     }
 
     public async UniTask<GameObject> GetPrefabInPool(string name)

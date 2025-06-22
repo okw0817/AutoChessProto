@@ -21,6 +21,8 @@ public class Hero : Character, IAttack, IAttacked, IMovable
     [SerializeField]
     private SkinnedMeshRenderer meshRenderer;
 
+    private UI_HeroState ui_state;
+
     private Tile curTile;
     private Tile nextTile;
     private Hero targetHero;
@@ -30,9 +32,13 @@ public class Hero : Character, IAttack, IAttacked, IMovable
     #endregion
 
     #region Members : Property
+
+    public bool IsMoving { get => isMoving; }
     public HeroData HeroData { get => heroData; }
     public Tile CurTile { get => curTile; set => curTile = value; }
     public Hero TargetHero { get => targetHero; set => targetHero = value; }
+
+    public UI_HeroState UI_HeroState { get => ui_state; set => ui_state = value; }
 
     public int CurGrade { 
         get => curGrade;
@@ -66,12 +72,15 @@ public class Hero : Character, IAttack, IAttacked, IMovable
             synergy.Init();
         }
 
-        float rate = 1.0f;
-
-        if (curGrade == 2) rate = 1.5f;
-        else if (curGrade == 3) rate = 2.0f;
-
         base.Init();
+    }
+
+    public override void InitializeState()
+    {
+        base.InitializeState();
+
+        ui_state.SetMP(0.0f);
+        ui_state.SetHp(100.0f);
     }
     #endregion
 
@@ -86,6 +95,8 @@ public class Hero : Character, IAttack, IAttacked, IMovable
             return;
 
         isAttackWating = true;
+        cur_HeroState.MP += cur_HeroState.gain_Attack_MP;
+        ui_state.SetMP((float)cur_HeroState.MP / (float)max_HeroState.MP);
 
         var chessMaster = AutoChessMaster.Instance;
         var obj = await chessMaster.GetPrefabInPool(heroData.projectile);
@@ -111,6 +122,7 @@ public class Hero : Character, IAttack, IAttacked, IMovable
             return;
 
         cur_HeroState.HP -= damage;
+        ui_state.SetHp((float)cur_HeroState.HP / (float)max_HeroState.HP);
 
         Debug.Log($"{heroData.name}: Attacked {damage}");
 
@@ -122,6 +134,10 @@ public class Hero : Character, IAttack, IAttacked, IMovable
         AutoChessMaster.Instance.DeleteHero(this);
     }
 
+    public Color GetHeroBorderColor(int level)
+    {
+        return colorData.GetHeroBoderColor(level);
+    }
     #endregion
 
     #region Methods : public
@@ -185,6 +201,14 @@ public class Hero : Character, IAttack, IAttacked, IMovable
         int vertiacalLenth = Mathf.Abs(targetHero.curTile.Index.Item2 - CurTile.Index.Item2);
 
         return (horizontalLenth + vertiacalLenth) <= cur_HeroState.AttackRange;
+    }
+
+    public void UpdateUITransform()
+    {
+        if (ui_state == null)
+            return;
+
+        ui_state.FollowHero(transform.position + new Vector3(0, 2f, 0.5f));
     }
     #endregion
 

@@ -23,6 +23,9 @@ public class UI_Hero_Icon : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private List<GameObject> activeObjects;
 
+    [SerializeField]
+    private Image backgroundImg;
+
     private bool isSale = false;
     #endregion
 
@@ -70,6 +73,11 @@ public class UI_Hero_Icon : MonoBehaviour, IPointerClickHandler
     public void SetCost(int cost)
     {
         this.cost.text = cost.ToString();
+    }
+
+    public void SetbackgroundColor(Color color)
+    {
+        backgroundImg.color = color;
     }
 
     #endregion

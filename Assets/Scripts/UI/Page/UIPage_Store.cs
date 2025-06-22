@@ -20,6 +20,9 @@ public class UIPage_Store : UIPage
 
     private List<UI_Hero_Icon> heroIcons = new List<UI_Hero_Icon>();
 
+    [SerializeField]
+    private ColorObjectable colorData;
+
     #endregion
 
     #region Methods : Mono
@@ -120,6 +123,7 @@ public class UIPage_Store : UIPage
         {
             heroIcons[i].SetSynergies(heroList[i]);
             heroIcons[i].SetCost(heroList[i].level);
+            heroIcons[i].SetbackgroundColor(colorData.GetHeroBoderColor(heroList[i].level));
         }
     }
 

@@ -39,13 +39,12 @@ public class TileController : MonoBehaviour
     #endregion
 
     #region Methods : Private
-
     #endregion
 
     #region Methods : Public
     public Tile GetTile(int horizontalIndex, int virticalIndex)
     {
-        if (virticalIndex < 0 || allTiles.Count < virticalIndex)
+        if (virticalIndex < 0 || allTiles.Count <= virticalIndex)
             return null;
 
         return allTiles[virticalIndex].GethorizontalTile(horizontalIndex);

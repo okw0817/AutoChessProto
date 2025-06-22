@@ -2968,6 +2968,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6406781172362162477, guid: 5ae15702b28cf5d46b0b87646f3a078f, type: 3}
+      propertyPath: m_OverrideSorting
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8223827190927590974, guid: 5ae15702b28cf5d46b0b87646f3a078f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3167,6 +3171,7 @@ MonoBehaviour:
   levelUpBtn: {fileID: 1093819102}
   heroList_rect: {fileID: 1878136717}
   uI_Panel_StoreInfo: {fileID: 906249726}
+  colorData: {fileID: 11400000, guid: 85d1bc91d43dfa4419f52eb346a12e2a, type: 2}
 --- !u!1 &1403888643
 GameObject:
   m_ObjectHideFlags: 0

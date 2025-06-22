@@ -12,9 +12,23 @@ public class EffectBase : MonoBehaviour
     #endregion
 
     #region Members : Properties
-    public string EffectName { 
-        get => name;
-        set => name = value;
+    public string EffectName
+    {
+        get => effectName;
+        set => effectName = value;
+    }
+    #endregion
+
+    #region Metdhos : Mono
+    private void Awake()
+    {
+        if (particle == null)
+            particle = GetComponent<ParticleSystem>();
+    }
+
+    private void OnDestroy()
+    {
+        cts.Cancel();
     }
     #endregion
 
@@ -27,13 +41,7 @@ public class EffectBase : MonoBehaviour
 
         AutoChessMaster.Instance.PushPrefabPool(effectName, this.gameObject);
     }
-    #endregion
 
-    #region Methods : Mono
-    private void OnDestroy()
-    {
-        cts.Cancel();
-    }
     #endregion
 }
 

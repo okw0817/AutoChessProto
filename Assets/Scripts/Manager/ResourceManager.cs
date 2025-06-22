@@ -11,6 +11,7 @@ public class ResourceManager : ManagerBase<ResourceManager>
     private Dictionary<int, ProbabilityData> ProbabilityData = new Dictionary<int, ProbabilityData>();
     private Dictionary<int, int> ExperienceData = new Dictionary<int, int>();
     private Dictionary<string, string> EffectDataDic = new Dictionary<string, string>();
+    private Dictionary<int, EnemyGrade[]> RoundDataDic = new Dictionary<int, EnemyGrade[]>();
     #endregion
 
     #region Members : Properties
@@ -28,6 +29,7 @@ public class ResourceManager : ManagerBase<ResourceManager>
         await Addressables.LoadResourceLocationsAsync(AddressablesLabel.Hero.ToString());
         await Addressables.LoadResourceLocationsAsync(AddressablesLabel.Projectile.ToString());
         await Addressables.LoadResourceLocationsAsync(AddressablesLabel.Effect.ToString());
+        await Addressables.LoadResourceLocationsAsync(AddressablesLabel.UI.ToString());
 
         //Characters
         var asset = Readfile(ResorucesName.CharactersProperties);
@@ -65,6 +67,15 @@ public class ResourceManager : ManagerBase<ResourceManager>
         {
             EffectDataDic.Add(effect.projectile, effect.effect);
         }
+
+        //rounds
+        asset = Readfile(ResorucesName.Rounds);
+        RoundContatiner roundContatiner = JsonUtility.FromJson<RoundContatiner>(asset.ToString());
+
+        foreach (var roundData in roundContatiner.rounds)
+        {
+            RoundDataDic.Add(roundData.round, roundData.enemies);
+        }
     }
     #endregion
 
@@ -93,6 +104,14 @@ public class ResourceManager : ManagerBase<ResourceManager>
             return EffectDataDic[projectile];
 
         return null;
+    }
+
+    public EnemyGrade[] GetEnemies(int round)
+    {
+        if(!RoundDataDic.ContainsKey(round))
+            return null;
+
+        return RoundDataDic[round];
     }
     #endregion
 
