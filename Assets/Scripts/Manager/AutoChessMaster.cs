@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using UnityEngine.UI; 
+using UnityEngine.EventSystems;
 
 public class AutoChessMaster : SigletoneBase<AutoChessMaster>
 {
@@ -29,6 +31,7 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
     private int maxStoreList = 5;
 
     private bool gameStart = false;
+    private int money;
     #endregion
 
     #region Members : Properties
@@ -40,6 +43,18 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
             var command = new UIPageCommand(UIPageString.Store, true);
             command.SetData(UIDataType.Level.ToString(), curLevel);
             command.SetData(UIDataType.Probability.ToString(), ResourceManager.Instance.GetProbabilityLevel(curLevel));
+            command.Excute();
+        }
+    }
+
+    public int Money
+    {
+        get => money;
+        set
+        {
+            money = value;
+            var command = new UIPageCommand(UIPageString.Store, true);
+            command.SetData(UIDataType.Money.ToString(), money);
             command.Excute();
         }
     }
@@ -77,6 +92,7 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
     private void Start()
     {
         roundController.SetNextRound();
+        Money = 15;
     }
     #endregion
 
@@ -190,9 +206,24 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
                     }
                 }
             }
-            else if(Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Tile")))
+            else 
             {
+                var page = UIManager.Instance.UICtrl.GetPage<UIPage_Store>(UIPageString.Store.ToString());
+                if (page != null && page.TryGetComponent<GraphicRaycaster>(out var graphicRaycaster))
+                {
+                    var ped = new PointerEventData(null);
+                    ped.position = Input.mousePosition;
+                    List<RaycastResult> results = new List<RaycastResult>();
+                    graphicRaycaster.Raycast(ped, results);
 
+                    if(results.Count > 0 && pickup.PickupObject.TryGetComponent<Hero>(out var hero))
+                    {
+                        DeleteHero(hero);
+                        money += hero.HeroData.level * hero.CurGrade;
+                        pickup.DropOff(null);
+
+                    }
+                }
             }
 
         }
@@ -220,12 +251,13 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
     #endregion
 
     #region Methods : Public
-    public void RaiseExperience(int amount)
+    public void RaiseExperience(int amount, int cost = 0)
     {
-        if (maxStoreLevel == curLevel)
+        if (maxStoreLevel == curLevel || money < cost)
             return;
 
         curExperience += amount;
+        Money -= cost;
 
         if(requireExperience <= curExperience)
         {
@@ -299,6 +331,11 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
 
     public async void AddHeroPrefab(string heroName, UI_Hero_Icon uI_Hero_Icon)
     {
+        var data = ResourceManager.Instance.GetHeroData(heroName);
+        if (money < data.level)
+            return;
+
+        Money -= data.level;
         GameObject obj = prefabPool.PopPool(heroName);
         if (obj == null)
         {

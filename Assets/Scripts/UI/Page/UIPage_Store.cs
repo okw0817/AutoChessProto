@@ -23,6 +23,7 @@ public class UIPage_Store : UIPage
     [SerializeField]
     private ColorObjectable colorData;
 
+    private int refreshCost = 2;
     #endregion
 
     #region Methods : Mono
@@ -83,6 +84,12 @@ public class UIPage_Store : UIPage
             uI_Panel_StoreInfo.SetSynergies(probability);
         }
 
+        if (data.ContainsKey(UIDataType.Money.ToString()))
+        {
+            var money = (int)data[UIDataType.Money.ToString()];
+            uI_Panel_StoreInfo.SetMoney(money);
+        }
+
     }
 
     public override void SetCallback(Dictionary<string, Action> callbacks)
@@ -98,7 +105,7 @@ public class UIPage_Store : UIPage
         levelUpBtn.onClick.RemoveAllListeners();
         levelUpBtn.onClick.AddListener(() =>
         {
-            AutoChessMaster.Instance.RaiseExperience(2);
+            AutoChessMaster.Instance.RaiseExperience(2, 2);
         });
 
         string callbackKey = UIDataType.Callback.ToString();
@@ -129,10 +136,11 @@ public class UIPage_Store : UIPage
 
     private void RefreshList()
     {
-        if (AutoChessMaster.Instance == null)
+        var chessMaster = AutoChessMaster.Instance;
+        if (AutoChessMaster.Instance == null && chessMaster.Money < 2)
             return;
 
-        var chessMaster = AutoChessMaster.Instance;
+        chessMaster.Money -= refreshCost;
         var probabilities = chessMaster.GetProbabilityLevel(chessMaster.CurLevel);
         var list = chessMaster.GetStoreList(probabilities);
 

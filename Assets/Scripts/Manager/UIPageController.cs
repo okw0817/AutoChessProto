@@ -27,5 +27,16 @@ public class UIPageController : MonoBehaviour
         page.Open(uIPageCommand);
 
     }
+
+    public UIPage GetPage(string id)
+    {
+        foreach(var page in pageList)
+        {
+            if (page.Id == id)
+                return page;
+        }
+
+        return null;
+    }
     #endregion
 }

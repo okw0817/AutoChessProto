@@ -113,6 +113,17 @@ public class ResourceManager : ManagerBase<ResourceManager>
 
         return RoundDataDic[round];
     }
+
+    public HeroData GetHeroData(string heroName)
+    {
+        foreach(var hero in heroData)
+        {
+            if (hero.name == heroName)
+                return hero;
+        }
+
+        return null;
+    }
     #endregion
 
     #region Methods : Private

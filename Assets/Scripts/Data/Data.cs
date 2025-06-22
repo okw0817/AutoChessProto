@@ -15,7 +15,7 @@ public enum CommandCallbackString { None, Callback, LevelUp }
 #endregion
 
 #region DataType
-public enum UIDataType { None, Title, Content, Callback, Data, Exe, Level, Probability}
+public enum UIDataType { None, Title, Content, Callback, Data, Exe, Level, Probability, Money}
 #endregion
 
 #region CharacterAbillity

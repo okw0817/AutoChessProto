@@ -18,6 +18,9 @@ public class UI_Panel_StoreInfo : MonoBehaviour
 
     [SerializeField]
     private List<TextMeshProUGUI> synergiesProbabilities;
+
+    [SerializeField]
+    private TextMeshProUGUI txt_money;
     #endregion
 
     #region Methods : Public
@@ -42,6 +45,11 @@ public class UI_Panel_StoreInfo : MonoBehaviour
         synergiesProbabilities[1].text = probabilityData.two.ToString();
         synergiesProbabilities[2].text = probabilityData.three.ToString();
         synergiesProbabilities[3].text = probabilityData.four.ToString();
+    }
+
+    public void SetMoney(int money)
+    {
+        txt_money.text = money.ToString();
     }
     #endregion
 }
