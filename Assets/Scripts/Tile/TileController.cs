@@ -8,6 +8,10 @@ public class TileController : MonoBehaviour
     private List<HorizontalTileContainer> allTiles = new List<HorizontalTileContainer>();
     #endregion
 
+    #region Members
+    public IEnumerator<HorizontalTileContainer> AllTiles { get => allTiles.GetEnumerator(); }
+    #endregion
+
     #region Methods : Mono
     void Start()
     {

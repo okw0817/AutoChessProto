@@ -5,6 +5,10 @@
             "effect" : "Effect_Blood"
         },
         {
+            "projectile" : "Arrow_B",
+            "effect" : "Effect_Blood"
+        },
+        {
             "projectile" : "Sword",
             "effect" : "Effect_Blood"
         },

@@ -11,7 +11,7 @@ public enum ReciverType { None, UIManager, SceneLoadManager}
 public enum SceneName { None, Init, Main}
 
 public enum CommandDataString { None, HeroList, Exe, AddSynergy, DeleteSynergy, SynergyCount }
-public enum CommandCallbackString { None, Callback, LevelUp }
+public enum CommandCallbackString { None, Callback, LevelUp, Refresh }
 #endregion
 
 #region DataType

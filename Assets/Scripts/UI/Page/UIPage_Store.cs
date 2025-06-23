@@ -99,7 +99,7 @@ public class UIPage_Store : UIPage
         refreshBtn.onClick.RemoveAllListeners();
         refreshBtn.onClick.AddListener(() =>
         {
-            RefreshList();
+            RefreshList(refreshCost);
         });
 
         levelUpBtn.onClick.RemoveAllListeners();
@@ -112,6 +112,11 @@ public class UIPage_Store : UIPage
         if (callbacks.ContainsKey(callbackKey))
         {
             callbacks[callbackKey].Invoke();
+        }
+
+        if (callbacks.ContainsKey(CommandCallbackString.Refresh.ToString()))
+        {
+            RefreshList(0);
         }
     }
 
@@ -134,10 +139,10 @@ public class UIPage_Store : UIPage
         }
     }
 
-    private void RefreshList()
+    private void RefreshList(int cost)
     {
         var chessMaster = AutoChessMaster.Instance;
-        if (AutoChessMaster.Instance == null && chessMaster.Money < 2)
+        if (AutoChessMaster.Instance == null && chessMaster.Money < cost)
             return;
 
         chessMaster.Money -= refreshCost;

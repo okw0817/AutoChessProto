@@ -92,5 +92,10 @@ public class MergeHeroController
 
         return upgradeHero;
     }
+
+    public void MergeCheck()
+    {
+
+    }
     #endregion
 }

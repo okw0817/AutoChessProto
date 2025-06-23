@@ -9,7 +9,7 @@ public class RoundController : IInitializer
     private List<Hero> stageHeroes;
     private List<Hero> enemies;
     private List<HeroPosition> heroPositions;
-    private List<Hero> heroDeadList;
+    // List<Hero> heroDeadList;
     private int curRound;
     #endregion
 
@@ -30,7 +30,7 @@ public class RoundController : IInitializer
     public void Init()
     {
         curRound = 0;
-        heroDeadList = new List<Hero>();
+        //heroDeadList = new List<Hero>();
         heroPositions = new List<HeroPosition>();
     }
     #endregion
@@ -42,12 +42,13 @@ public class RoundController : IInitializer
 
         //SetEnemies
         ++curRound;
+        HeroInitPosition();
+
         var roundData = ResourceManager.Instance.GetEnemies(curRound);
         foreach(var round in roundData)
         {
             AutoChessMaster.Instance.AddEnemy(round.name, (round.x, round.y), round.grade);
         }
-        HeroInitPosition();
     }
 
     public void SaveHeroPosition()
@@ -61,7 +62,7 @@ public class RoundController : IInitializer
 
     public void AddDeadList(Hero hero)
     {
-        heroDeadList.Add(hero);
+        //heroDeadList.Add(hero);
     }
     #endregion
 
@@ -82,7 +83,30 @@ public class RoundController : IInitializer
                 position.Hero.CurTile.StandingHero = position.Hero;
                 position.Hero.transform.position = position.InitTile.transform.position;
                 position.Hero.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+                position.Hero.InitializeState();
+                position.Hero.gameObject.SetActive(true);
                 stageHeroes.Add(position.Hero);
+            }
+        }
+    }
+
+    private void InitializeTile()
+    {
+        var enumerator = tileController.AllTiles;
+        while(enumerator.MoveNext())
+        {
+            var enumerator2 = enumerator.Current.Tiles;
+            while(enumerator2.MoveNext())
+            {
+                if(enumerator2.Current.StandingHero != null && enumerator2.Current.StandingHero.HeroTeam == Team.Enemy)
+                {
+                    var chessMaster = AutoChessMaster.Instance;
+                    enumerator2.Current.StandingHero.CurTile = null;
+                    //chessMaster.DeleteHeroUI(enumerator2.Current.StandingHero);
+                    //chessMaster.PushPrefabPool(enumerator2.Current.StandingHero.HeroData.name, enumerator2.Current.StandingHero.gameObject);
+                    chessMaster.DeleteHero(enumerator2.Current.StandingHero);
+                    enumerator2.Current.StandingHero = null;
+                }
             }
         }
     }

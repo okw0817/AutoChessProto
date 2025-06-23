@@ -13,10 +13,15 @@ public class Hero : Character, IAttack, IAttacked, IMovable
     private int curGrade = 1;
 
     [SerializeField]
+    private Team heroTeam;
+
+    [SerializeField]
     private List<SynergyObjectable> synergyData;
 
     [SerializeField]
     private ColorObjectable colorData;
+
+    private Animator animator;
 
     [SerializeField]
     private SkinnedMeshRenderer meshRenderer;
@@ -29,6 +34,8 @@ public class Hero : Character, IAttack, IAttacked, IMovable
     private bool isMoving;
     private bool isAttackWating;
     private float moveSpeed = 2.0f;
+
+    private int findCount;
     #endregion
 
     #region Members : Property
@@ -48,7 +55,14 @@ public class Hero : Character, IAttack, IAttacked, IMovable
             SetGradeState(curGrade);
         }
     }
-    public Team HeroTeam { get; set; }
+
+    public Team HeroTeam {
+        get => heroTeam; 
+        set {
+            heroTeam = value;
+        } }
+
+    public int FindCount { get => findCount; set => findCount = value; }
     #endregion
 
     #region Methods : Mono
@@ -66,12 +80,15 @@ public class Hero : Character, IAttack, IAttacked, IMovable
     {
         isMoving = false;
         isAttackWating = false;
-        
+
+        animator = GetComponentInChildren<Animator>(true);
+
         foreach (var synergy in synergyData)
         {
             synergy.Init();
         }
 
+        findCount = 0;
         base.Init();
     }
 
@@ -93,6 +110,9 @@ public class Hero : Character, IAttack, IAttacked, IMovable
 
         if (isAttackWating)
             return;
+
+        animator.Play("Attack", -1, 0.0f);
+        animator.speed = 2.0f - cur_HeroState.attackSpeed;
 
         isAttackWating = true;
         cur_HeroState.MP += cur_HeroState.gain_Attack_MP;
@@ -131,7 +151,12 @@ public class Hero : Character, IAttack, IAttacked, IMovable
 
     public void Die()
     {
-        AutoChessMaster.Instance.DeleteHero(this);
+        if(HeroTeam == Team.Enemy)
+            AutoChessMaster.Instance.DeleteHero(this);
+        else
+        {
+            AutoChessMaster.Instance.DieHero(this);
+        }
     }
 
     public Color GetHeroBorderColor(int level)
@@ -197,6 +222,9 @@ public class Hero : Character, IAttack, IAttacked, IMovable
 
     public bool isArrive()
     {
+        if (targetHero == null || CurTile == null)
+            return true;
+
         int horizontalLenth = Mathf.Abs(targetHero.curTile.Index.Item1 - CurTile.Index.Item1);
         int vertiacalLenth = Mathf.Abs(targetHero.curTile.Index.Item2 - CurTile.Index.Item2);
 
@@ -251,7 +279,8 @@ public class Hero : Character, IAttack, IAttacked, IMovable
         var tile = chessMaster.GetTiltePosition((index.Item1 + HorizontalAmount, index.Item2 + VerticalAmount));
         if (tile.StandingHero != null)
         {
-            if(VerticalAmount != 0)
+            ++findCount;
+            if (VerticalAmount != 0)
             {
                 foreach(var amount in AmountArr)
                 {
@@ -260,9 +289,7 @@ public class Hero : Character, IAttack, IAttacked, IMovable
                     if (tile != null && tile.StandingHero == null)
                         return tile;
                 }
-            }
-
-            if (HorizontalAmount != 0)
+            }else if (HorizontalAmount != 0)
             {
                 foreach (var amount in AmountArr)
                 {

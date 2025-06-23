@@ -28,8 +28,11 @@ public class HeroBehaviorController
 
         foreach (var hero in heroes)
         {
-            if (hero.TargetHero == null || hero.TargetHero.IsDie())
+            if (hero.TargetHero == null || hero.TargetHero.IsDie() || hero.FindCount > 2)
+            {
+                hero.FindCount = 0;
                 hero.TargetHero = FindTarget(hero, enemies);
+            }
             else
             {
                 if (!hero.isArrive() || hero.IsMoving)
