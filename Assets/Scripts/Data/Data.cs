@@ -10,7 +10,7 @@ public enum UIPopupString { None, OneButton};
 public enum ReciverType { None, UIManager, SceneLoadManager}
 public enum SceneName { None, Init, Main}
 
-public enum CommandDataString { None, HeroList, Exe, AddSynergy, DeleteSynergy, SynergyCount }
+public enum CommandDataString { None, HeroList, Exe, AddSynergy, DeleteSynergy, SynergyCount, PlayButton }
 public enum CommandCallbackString { None, Callback, LevelUp, Refresh }
 #endregion
 
@@ -38,7 +38,7 @@ public static class ResorucesName
 #endregion
 
 #region Addressabels
-public enum AddressablesLabel { None, Hero, Effect, Projectile, UI }
+public enum AddressablesLabel { Hero, Particle, Projectile, UI, Icon }
 #endregion
 
 #region Tile

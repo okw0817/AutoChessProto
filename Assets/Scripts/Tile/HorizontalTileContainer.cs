@@ -51,5 +51,10 @@ public class HorizontalTileContainer : MonoBehaviour, IInitializer
 
         return tiles[horizontalIndex];
     }
+
+    public bool GetInit()
+    {
+        return true;
+    }
     #endregion
 }

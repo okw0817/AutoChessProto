@@ -23,6 +23,10 @@ public class UIController : MonoBehaviour, IInitializer
 
         UIManager.Instance.RegisterUIController(this);
     }
+    public bool GetInit()
+    {
+        return true;
+    }
 
     #endregion
 

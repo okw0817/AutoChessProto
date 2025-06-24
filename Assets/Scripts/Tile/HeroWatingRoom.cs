@@ -46,5 +46,10 @@ public class HeroWatingRoom : MonoBehaviour, IInitializer
     {
 
     }
+
+    public bool GetInit()
+    {
+        return true;
+    }
     #endregion
 }

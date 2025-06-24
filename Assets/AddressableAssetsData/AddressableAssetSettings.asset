@@ -47,6 +47,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 08fee60a138ada54a96f0f535c8a47f1, type: 2}
   - {fileID: 11400000, guid: 899ae5fa605694d4d98c624b11d860d3, type: 2}
   - {fileID: 11400000, guid: 7747462c3c1dc5a4fa2c1708ae2e7fce, type: 2}
+  - {fileID: 11400000, guid: f5bbe818dba141047ac32416cbb95407, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -92,6 +93,7 @@ MonoBehaviour:
     - Projectile
     - Particle
     - UI
+    - Icon
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 6b0362feb4b56544390410c5641fa267, type: 2}

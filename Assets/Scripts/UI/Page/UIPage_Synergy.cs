@@ -83,7 +83,7 @@ public class UIPage_Synergy : UIPage
     #endregion
 
     #region Methods : Private
-    private void SetSynergy(HeroData heroData, int amount)
+    private async void SetSynergy(HeroData heroData, int amount)
     {
         foreach(var synergy in heroData.synergies)
         {
@@ -100,6 +100,7 @@ public class UIPage_Synergy : UIPage
  
                 var item = Dic_Synergy[synergy];
                 item.SetName(synergy);
+                item.SetIcon(await ResourceManager.Instance.GetAddressablesSprite(synergy + "_Icon"));
                 item.Count += amount;
 
                 Debug.Log($"{synergy} Count : {item.Count}");
@@ -111,6 +112,7 @@ public class UIPage_Synergy : UIPage
             else
             {
                 var item = Dic_Synergy[synergy];
+                item.SetIcon(await ResourceManager.Instance.GetAddressablesSprite(synergy + "_Icon"));
                 item.Count += amount;
 
                 Debug.Log($"{synergy} Count : {item.Count}");

@@ -136,6 +136,9 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
     {
         gameStart = true;
         roundController.SaveHeroPosition();
+        var command = new UIPageCommand(UIPageString.Store, true);
+        command.SetData(CommandDataString.PlayButton.ToString(), false);
+        command.Excute();
     }
 
     public void StageEnd()
@@ -159,6 +162,7 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
         //refresh
         var command = new UIPageCommand(UIPageString.Store, true);
         command.SetData(CommandCallbackString.Callback.ToString(), null);
+        command.SetData(CommandDataString.PlayButton.ToString(), true);
         command.Excute();
     }
     #endregion

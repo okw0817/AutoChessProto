@@ -110,6 +110,11 @@ public class RoundController : IInitializer
             }
         }
     }
+
+    public bool GetInit()
+    {
+        return true;
+    }
     #endregion
 }
 

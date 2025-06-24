@@ -101,5 +101,10 @@ public class Projectile : MonoBehaviour, IInitializer, IMovable
         }
         this.target = null;
     }
+
+    public bool GetInit()
+    {
+        return true;
+    }
     #endregion
 }

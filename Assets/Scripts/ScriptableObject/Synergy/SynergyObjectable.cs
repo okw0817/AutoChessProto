@@ -11,11 +11,16 @@ public class SynergyObjectable : ScriptableObject, IInitializer
     {
         Debug.Log($"{level}: {hero.HeroData.name}");
     }
+
     #endregion
 
     #region Methods : Interface
     public virtual void Init()
     {
+    }
+    public virtual bool GetInit()
+    {
+        return true;
     }
     #endregion
 

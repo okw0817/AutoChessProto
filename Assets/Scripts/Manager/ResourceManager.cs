@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using System;
 
 public class ResourceManager : ManagerBase<ResourceManager>
 {
@@ -23,13 +24,12 @@ public class ResourceManager : ManagerBase<ResourceManager>
     #region Methods : Override
     public override async void Init()
     {
-        base.Init();
-
         await Addressables.InitializeAsync();
-        await Addressables.LoadResourceLocationsAsync(AddressablesLabel.Hero.ToString());
-        await Addressables.LoadResourceLocationsAsync(AddressablesLabel.Projectile.ToString());
-        await Addressables.LoadResourceLocationsAsync(AddressablesLabel.Effect.ToString());
-        await Addressables.LoadResourceLocationsAsync(AddressablesLabel.UI.ToString());
+        foreach(AddressablesLabel key in Enum.GetValues(typeof(AddressablesLabel)))
+        {
+            await Addressables.DownloadDependenciesAsync(key.ToString());
+        }
+
 
         //Characters
         var asset = Readfile(ResorucesName.CharactersProperties);
@@ -76,6 +76,8 @@ public class ResourceManager : ManagerBase<ResourceManager>
         {
             RoundDataDic.Add(roundData.round, roundData.enemies);
         }
+
+        base.Init();
     }
     #endregion
 
@@ -96,6 +98,10 @@ public class ResourceManager : ManagerBase<ResourceManager>
     public async UniTask<GameObject> GetAddressablesRasources(string AddressablesName)
     {
         return await Addressables.InstantiateAsync(AddressablesName);
+    }
+    public async UniTask<Sprite> GetAddressablesSprite(string AddressablesName)
+    {
+        return await Addressables.LoadAssetAsync<Sprite>(AddressablesName);
     }
 
     public string GetEffectName(string projectile)

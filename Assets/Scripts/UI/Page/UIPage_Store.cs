@@ -23,6 +23,9 @@ public class UIPage_Store : UIPage
     [SerializeField]
     private ColorObjectable colorData;
 
+    [SerializeField]
+    private Button playButton;
+
     private int refreshCost = 2;
     #endregion
 
@@ -90,6 +93,11 @@ public class UIPage_Store : UIPage
             uI_Panel_StoreInfo.SetMoney(money);
         }
 
+        if(data.ContainsKey(CommandDataString.PlayButton.ToString()))
+        {
+            var active = (bool)data[CommandDataString.PlayButton.ToString()];
+            playButton.gameObject.SetActive(active);
+        }
     }
 
     public override void SetCallback(Dictionary<string, Action> callbacks)
@@ -123,7 +131,7 @@ public class UIPage_Store : UIPage
     #endregion
 
     #region Private : Methods
-    private void SetHeroData(List<HeroData> heroList)
+    private async void SetHeroData(List<HeroData> heroList)
     {
         foreach(var uiIcon in heroIcons)
         {
@@ -133,6 +141,7 @@ public class UIPage_Store : UIPage
 
         for(int i=0; i< heroList.Count; ++i)
         {
+            heroIcons[i].SetAvatarIcon(await ResourceManager.Instance.GetAddressablesSprite(heroList[i].icon));
             heroIcons[i].SetSynergies(heroList[i]);
             heroIcons[i].SetCost(heroList[i].level);
             heroIcons[i].SetbackgroundColor(colorData.GetHeroBoderColor(heroList[i].level));
@@ -142,7 +151,7 @@ public class UIPage_Store : UIPage
     private void RefreshList(int cost)
     {
         var chessMaster = AutoChessMaster.Instance;
-        if (AutoChessMaster.Instance == null && chessMaster.Money < cost)
+        if (AutoChessMaster.Instance == null || chessMaster.Money < cost)
             return;
 
         chessMaster.Money -= refreshCost;
