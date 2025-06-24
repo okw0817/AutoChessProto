@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 
 public class WorldManager : ManagerBase<WorldManager>, IState<WorldState>
 {
@@ -8,7 +9,7 @@ public class WorldManager : ManagerBase<WorldManager>, IState<WorldState>
     #region Members : Property
     public WorldState State { 
         get => state;
-        set
+        set 
         {
             if (value == state)
                 return;
@@ -27,7 +28,7 @@ public class WorldManager : ManagerBase<WorldManager>, IState<WorldState>
     #endregion
 
     #region Methods : Override
-    public override void Init()
+    public override async void Init()
     {
         var initializers = GetComponentsInChildren<IInitializer>(true);
 
@@ -38,6 +39,8 @@ public class WorldManager : ManagerBase<WorldManager>, IState<WorldState>
                 continue;
                 
             initializer.Init();
+
+            await UniTask.WaitUntil(() => initializer.GetInit());
         }
 
         State = WorldState.Login;

@@ -6,6 +6,10 @@ public class UIManager : ManagerBase<UIManager>, IReceiver, IObserver<Command>
     private ReciverType reciverType;
     #endregion
 
+    #region Members : Properties
+    public UIController UICtrl { get => uiController; }
+    #endregion
+
     #region Methods : Override
     public override void Init()
     {

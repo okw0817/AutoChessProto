@@ -1,0 +1,185 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Sprite
+  m_EditorClassIdentifier: 
+  m_GroupName: Sprite
+  m_Data:
+    m_SerializedData: []
+  m_GUID: ed3b13062f7119f45944e8c6f885dc99
+  m_SerializeEntries:
+  - m_GUID: 67bf3211ce2b83e4883865f323aed902
+    m_Address: TT_King_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: 7f588c3abfabbd94999068a581c421d8
+    m_Address: TT_Priest_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: 2a2a30e2cbecc73439437e919892ec0d
+    m_Address: TT_Scout_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: 89a916e6e782a8d46a490e10a31eb90e
+    m_Address: TT_Swrodman_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: 852132b3c9c66fa4895b5aa0fb2bbdd2
+    m_Address: TT_Mounted_Scout_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: e096cd91b4e3518469be68d3e9a18182
+    m_Address: TT_Mounted_Priest_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: 6e47aeaebbe08e74bad417663963d3a7
+    m_Address: TT_Crossbowman_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: 73ec82e02834a2c49b33237a53ba2873
+    m_Address: TT_HeavySwordman_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: 0b46e3dc58570204ca7bc3fac8d640fd
+    m_Address: TT_Mage_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: fe75e86375e813f4d84406050eb5ac52
+    m_Address: TT_Light_Infantry_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: 31af95e7cd449db48a4d3b528147cfe6
+    m_Address: TT_Mounted_Mage_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: dec45eb9952de6f44abbd992230fca4b
+    m_Address: TT_Heavy_Infantry_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: 3267aabd75bb3ec4f8810a9d1e5f409e
+    m_Address: TT_HighPriest_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: f76b3b78f5be4fa4da74ec4f3217e734
+    m_Address: TT_Heavy_Cavalry_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: 5c41c30c8ba6ea5459d7aef88054680c
+    m_Address: TT_Peasant_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: dfdc6e9bb4c223146a9f7021630f202d
+    m_Address: H1_Spearman_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: 3a170bbdc9b1c2b48b8eb4980c8ec3b3
+    m_Address: H2_Halberdier_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: 824a1a47c98f02940b4038b90851817a
+    m_Address: TT_Commander_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: 4fe393c7593d4a446974415ba4a581c4
+    m_Address: TT_Mounted_King_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: b00996c532f951849b3edc33f407ea8c
+    m_Address: TT_Mounted_Paladin_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: aae67cc46cc44724baf8d3687d66fb2c
+    m_Address: H4_Mounted_Knight_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: 43252ffb672676f4e9e4f3d114016c9e
+    m_Address: TT_Light_Cavalry_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: dd407fa74c80e5f4f8dc2d7c93678313
+    m_Address: TT_Paladin_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: 0bce88cd0f153c94e8fbd271723e7197
+    m_Address: Archer_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: da49beeb401370e46833cef5119cad5e
+    m_Address: ClothArmor_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: ea06b455745575e4d8c88ddc8deb03d1
+    m_Address: Healer_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: 4c0cdcd19a83ebf4d926c2dcf86b270a
+    m_Address: HeavyArmor_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: dc4cba2933538a94fbd22c94505c24c8
+    m_Address: Magician_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: ca0d796a3db00154c8e21c1b1f9468aa
+    m_Address: Rider_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: 3cc49b231d13d9e44a169adfc6dec399
+    m_Address: Shielder_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: 7e253649c43808849a9f6336c7a32256
+    m_Address: Warrior_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  - m_GUID: d947499ee4e066f4396e6bcb251997f8
+    m_Address: TT_Archer_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Icon
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 8138524ce80a47446a65d259016c613a, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: edca3aa4e856c55408166d496650ad2d, type: 2}
+    - {fileID: 11400000, guid: ecbcea4b8c1bef340bfa5ce4025efd97, type: 2}

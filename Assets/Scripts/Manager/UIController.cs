@@ -23,5 +23,17 @@ public class UIController : MonoBehaviour, IInitializer
 
         UIManager.Instance.RegisterUIController(this);
     }
+    public bool GetInit()
+    {
+        return true;
+    }
+
+    #endregion
+
+    #region Methods : Public
+    public T GetPage<T>(string id) where T : UIPage
+    {
+        return (T)UIPageCrl.GetPage(id);
+    }
     #endregion
 }

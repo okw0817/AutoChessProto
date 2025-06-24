@@ -22,6 +22,11 @@ public class SigletoneBase<T> : MonoBehaviour, IInitializer where T: MonoBehavio
             return instance;
         }
     }
+
+    public virtual bool GetInit()
+    {
+        return true;
+    }
     #endregion
 
     #region Methods : Interface

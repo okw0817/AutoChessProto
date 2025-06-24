@@ -31,9 +31,15 @@ public abstract class Character : MonoBehaviour, IInitializer
         max_HeroState.attackSpeed = charaterState.AttackSpeed;
     }
 
-    public void InitializeState()
+    public virtual void InitializeState()
     {
         cur_HeroState = max_HeroState;
+        cur_HeroState.MP = 0;
+    }
+
+    public bool GetInit()
+    {
+        return true;
     }
     #endregion
 }

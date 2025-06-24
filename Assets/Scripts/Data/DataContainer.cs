@@ -79,3 +79,28 @@ public class EffectData
     public string effect;
 }
 #endregion
+
+
+#region Rounds
+[System.Serializable]
+public class RoundContatiner
+{
+    public RoundData[] rounds;
+}
+
+[System.Serializable]
+public class RoundData
+{
+    public int round;
+    public EnemyGrade[] enemies;
+}
+
+[System.Serializable]
+public class EnemyGrade
+{
+    public string name;
+    public int grade;
+    public int x;
+    public int y;
+}
+#endregion

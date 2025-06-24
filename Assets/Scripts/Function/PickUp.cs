@@ -19,7 +19,9 @@ public class PickUp : IPickup
     }
     public void DropOff(Transform dropPosition)
     {
-        pickupObject.transform.position = dropPosition.position;
+        if(dropPosition != null)
+            pickupObject.transform.position = dropPosition.position;
+
         pickupObject = null;
     }
 

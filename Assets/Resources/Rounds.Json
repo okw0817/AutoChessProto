@@ -1,0 +1,652 @@
+{
+    "rounds": [
+        {
+            "round" : 1,
+            "enemies" : 
+            [
+                { 
+                    "name" : "TT_Peasant",
+                    "grade" : 1,
+                    "x" : 4,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_Swordman",
+                    "grade" : 1,
+                    "x" : 5,
+                    "y" : 4
+                }
+
+            ]
+        },
+        {
+            "round" : 2,
+            "enemies" : 
+            [
+                { 
+                    "name" : "TT_Mage",
+                    "grade" : 1,
+                    "x" : 5,
+                    "y" : 5
+                },
+                { 
+                    "name" : "TT_Archer",
+                    "grade" : 1,
+                    "x" : 3,
+                    "y" : 6
+                },
+                { 
+                    "name" : "H1_Spearman",
+                    "grade" : 1,
+                    "x" : 6,
+                    "y" : 4
+                }
+
+            ]
+        },
+        {
+            "round" : 3,
+            "enemies" : 
+            [
+                { 
+                    "name" : "TT_Mage",
+                    "grade" : 1,
+                    "x" : 4,
+                    "y" : 7
+                },
+                { 
+                    "name" : "TT_Archer",
+                    "grade" : 1,
+                    "x" : 5,
+                    "y" : 7
+                },
+                { 
+                    "name" : "TT_Crossbowman",
+                    "grade" : 1,
+                    "x" : 6,
+                    "y" : 7
+                }
+
+            ]
+        },
+        {
+            "round" : 4,
+            "enemies" : 
+            [
+                { 
+                    "name" : "TT_Mage",
+                    "grade" : 2,
+                    "x" : 5,
+                    "y" : 7
+                },
+                { 
+                    "name" : "TT_Archer",
+                    "grade" : 1,
+                    "x" : 6,
+                    "y" : 7
+                },
+                { 
+                    "name" : "TT_Crossbowman",
+                    "grade" : 2,
+                    "x" : 7,
+                    "y" : 7
+                },
+                { 
+                    "name" : "H1_Spearman",
+                    "grade" : 2,
+                    "x" : 4,
+                    "y" : 4
+                }
+            ]
+
+        },
+        {
+            "round" : 5,
+            "enemies" : 
+            [
+                { 
+                    "name" : "TT_Mage",
+                    "grade" : 2,
+                    "x" : 5,
+                    "y" : 7
+                },
+                { 
+                    "name" : "TT_Heavy_Infantry",
+                    "grade" : 3,
+                    "x" : 5,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_Crossbowman",
+                    "grade" : 1,
+                    "x" : 4,
+                    "y" : 6
+                },
+                { 
+                    "name" : "H1_Spearman",
+                    "grade" : 2,
+                    "x" : 4,
+                    "y" : 4
+                }
+
+            ]
+
+        },
+        {
+            "round" : 6,
+            "enemies" : 
+            [
+                { 
+                    "name" : "TT_Mage",
+                    "grade" : 3,
+                    "x" : 4,
+                    "y" : 6
+                },
+                { 
+                    "name" : "TT_Heavy_Infantry",
+                    "grade" : 2,
+                    "x" : 4,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_Crossbowman",
+                    "grade" : 1,
+                    "x" : 5,
+                    "y" : 7
+                },
+                { 
+                    "name" : "TT_Scout",
+                    "grade" : 1,
+                    "x" : 7,
+                    "y" : 7
+                }
+
+            ]
+
+        },
+        {
+            "round" : 7,
+            "enemies" : 
+            [
+                { 
+                    "name" : "TT_Mage",
+                    "grade" : 3,
+                    "x" : 4,
+                    "y" : 6
+                },
+                { 
+                    "name" : "TT_Heavy_Infantry",
+                    "grade" : 1,
+                    "x" : 5,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_Crossbowman",
+                    "grade" : 1,
+                    "x" : 6,
+                    "y" : 6
+                },
+                { 
+                    "name" : "TT_Scout",
+                    "grade" : 1,
+                    "x" : 7,
+                    "y" : 7
+                },
+                { 
+                    "name" : "H2_Halberdier",
+                    "grade" : 1,
+                    "x" : 7,
+                    "y" : 4
+                }
+
+            ]
+        },
+        {
+            "round" : 8,
+            "enemies" : 
+            [
+                { 
+                    "name" : "TT_Mage",
+                    "grade" : 3,
+                    "x" : 4,
+                    "y" : 6
+                },
+                { 
+                    "name" : "TT_Heavy_Infantry",
+                    "grade" : 3,
+                    "x" : 4,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_Crossbowman",
+                    "grade" : 1,
+                    "x" : 5,
+                    "y" : 7
+                },
+                { 
+                    "name" : "TT_Scout",
+                    "grade" : 2,
+                    "x" : 7,
+                    "y" : 7
+                },
+                { 
+                    "name" : "H2_Halberdier",
+                    "grade" : 2,
+                    "x" : 6,
+                    "y" : 4
+                }
+
+            ]
+
+        },
+        {
+            "round" : 9,
+            "enemies" : 
+            [
+                { 
+                    "name" : "TT_Mage",
+                    "grade" : 3,
+                    "x" : 5,
+                    "y" : 7
+                },
+                { 
+                    "name" : "TT_Heavy_Infantry",
+                    "grade" : 2,
+                    "x" : 4,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_Crossbowman",
+                    "grade" : 1,
+                    "x" : 3,
+                    "y" : 6
+                },
+                { 
+                    "name" : "TT_Scout",
+                    "grade" : 1,
+                    "x" : 6,
+                    "y" : 7
+                },
+                { 
+                    "name" : "TT_Light_Infantry",
+                    "grade" : 3,
+                    "x" : 6,
+                    "y" : 4
+                }
+
+            ]
+
+        },
+        {
+            "round" : 10,
+            "enemies" : 
+            [
+                { 
+                    "name" : "TT_Mage",
+                    "grade" : 2,
+                    "x" : 6,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_Heavy_Infantry",
+                    "grade" : 2,
+                    "x" : 4,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_Crossbowman",
+                    "grade" : 1,
+                    "x" : 6,
+                    "y" : 6
+                },
+                { 
+                    "name" : "TT_Peasant",
+                    "grade" : 3,
+                    "x" : 6,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_HighPriest",
+                    "grade" : 1,
+                    "x" : 7,
+                    "y" : 5
+                }
+
+            ]
+
+        },
+        {
+            "round" : 11,
+            "enemies" : 
+            [
+                { 
+                    "name" : "TT_Mage",
+                    "grade" : 2,
+                    "x" : 7,
+                    "y" : 6
+                },
+                { 
+                    "name" : "TT_Heavy_Infantry",
+                    "grade" : 2,
+                    "x" : 7,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_Crossbowman",
+                    "grade" : 1,
+                    "x" : 7,
+                    "y" : 7
+                },
+                { 
+                    "name" : "TT_Peasant",
+                    "grade" : 3,
+                    "x" : 4,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_HighPriest",
+                    "grade" : 1,
+                    "x" : 5,
+                    "y" : 6
+                },
+                { 
+                    "name" : "TT_Paladin",
+                    "grade" : 1,
+                    "x" : 7,
+                    "y" : 4
+                }
+            ]
+        },
+        {
+            "round" : 12,
+            "enemies" : 
+            [
+                { 
+                    "name" : "TT_Mage",
+                    "grade" : 3,
+                    "x" : 7,
+                    "y" : 6
+                },
+                { 
+                    "name" : "TT_Heavy_Infantry",
+                    "grade" : 2,
+                    "x" : 4,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_Crossbowman",
+                    "grade" : 1,
+                    "x" : 7,
+                    "y" : 5
+                },
+                { 
+                    "name" : "TT_Peasant",
+                    "grade" : 3,
+                    "x" : 3,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_HighPriest",
+                    "grade" : 1,
+                    "x" : 3,
+                    "y" : 6
+                },
+                { 
+                    "name" : "TT_Paladin",
+                    "grade" : 1,
+                    "x" : 2,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_Mounted_Scout",
+                    "grade" : 1,
+                    "x" : 2,
+                    "y" : 7
+
+                }
+                
+            ]
+        },
+        {
+            "round" : 13,
+            "enemies" : 
+            [
+                { 
+                    "name" : "TT_Mage",
+                    "grade" : 3,
+                    "x" : 2,
+                    "y" : 7
+                },
+                { 
+                    "name" : "TT_Heavy_Infantry",
+                    "grade" : 2,
+                    "x" : 3,
+                    "y" : 6
+                },
+                { 
+                    "name" : "TT_Crossbowman",
+                    "grade" : 1,
+                    "x" : 4,
+                    "y" : 6
+                },
+                { 
+                    "name" : "TT_Peasant",
+                    "grade" : 3,
+                    "x" : 5,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_HighPriest",
+                    "grade" : 1,
+                    "x" : 5,
+                    "y" : 6
+                },
+                { 
+                    "name" : "H4_Mounted_Knight",
+                    "grade" : 1,
+                    "x" : 6,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_Mounted_Paladin",
+                    "grade" : 1,
+                    "x" : 7,
+                    "y" : 5
+                }
+
+            ]
+        },
+        {
+            "round" : 14,
+            "enemies" : 
+            [
+                { 
+                    "name" : "TT_Mage",
+                    "grade" : 3,
+                    "x" : 2,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_Heavy_Infantry",
+                    "grade" : 2,
+                    "x" : 3,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_Crossbowman",
+                    "grade" : 1,
+                    "x" : 3,
+                    "y" : 6
+                },
+                { 
+                    "name" : "TT_Peasant",
+                    "grade" : 3,
+                    "x" : 3,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_HighPriest",
+                    "grade" : 1,
+                    "x" : 4,
+                    "y" : 6
+                },
+                { 
+                    "name" : "H4_Mounted_Knight",
+                    "grade" : 2,
+                    "x" : 5,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_Mounted_Scout",
+                    "grade" : 2,
+                    "x" : 6,
+                    "y" : 6
+                }
+            ]
+        },{
+            "round" : 15,
+            "enemies" : 
+            [
+                { 
+                    "name" : "TT_Mage",
+                    "grade" : 3,
+                    "x" : 2,
+                    "y" : 6 
+                },
+                { 
+                    "name" : "TT_Heavy_Infantry",
+                    "grade" : 2,
+                    "x" : 3,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_Crossbowman",
+                    "grade" : 2,
+                    "x" : 4,
+                    "y" : 6
+                },
+                { 
+                    "name" : "TT_Peasant",
+                    "grade" : 3,
+                    "x" : 4,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_HighPriest",
+                    "grade" : 2,
+                    "x" : 5,
+                    "y" : 7
+                },
+                { 
+                    "name" : "TT_Paladin",
+                    "grade" : 2,
+                    "x" : 5,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_Mounted_Scout",
+                    "grade" : 2,
+                    "x" : 6,
+                    "y" : 7
+                }
+            ]
+        },
+        {
+            "round" : 16,
+            "enemies" : 
+            [
+                { 
+                    "name" : "TT_Commander",
+                    "grade" : 2,
+                    "x" : 1,
+                    "y" : 6
+                },
+                { 
+                    "name" : "TT_Heavy_Infantry",
+                    "grade" : 2,
+                    "x" : 2,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_Crossbowman",
+                    "grade" : 2,
+                    "x" : 2,
+                    "y" : 6
+                },
+                { 
+                    "name" : "TT_Peasant",
+                    "grade" : 3,
+                    "x" : 3,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_HighPriest",
+                    "grade" : 2,
+                    "x" : 3,
+                    "y" : 5
+                },
+                { 
+                    "name" : "TT_Paladin",
+                    "grade" : 2,
+                    "x" : 4,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_Mounted_Scout",
+                    "grade" : 2,
+                    "x" : 5,
+                    "y" : 6
+                }
+            ]
+        },
+        {
+            "round" : 17,
+            "enemies" : 
+            [
+                { 
+                    "name" : "TT_Commander",
+                    "grade" : 2,
+                    "x" : 2,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_Mounted_Mage",
+                    "grade" : 2,
+                    "x" : 3,
+                    "y" : 6
+                },
+                { 
+                    "name" : "TT_Crossbowman",
+                    "grade" : 2,
+                    "x" : 3,
+                    "y" : 7
+                },
+                { 
+                    "name" : "TT_Peasant",
+                    "grade" : 3,
+                    "x" : 4,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_HighPriest",
+                    "grade" : 2,
+                    "x" : 4,
+                    "y" : 7
+                },
+                { 
+                    "name" : "TT_Mounted_Paladin",
+                    "grade" : 2,
+                    "x" : 6,
+                    "y" : 4
+                },
+                { 
+                    "name" : "TT_Mounted_Scout",
+                    "grade" : 2,
+                    "x" : 7,
+                    "y" : 6
+                }
+            ]
+        }
+     ]
+
+}

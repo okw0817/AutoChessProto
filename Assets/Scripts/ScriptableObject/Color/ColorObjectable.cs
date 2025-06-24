@@ -16,6 +16,9 @@ public class ColorObjectable : ScriptableObject
 
     [SerializeField]
     private List<Color> heroColor;
+
+    [SerializeField]
+    private List<Color> heroBoderColor;
     #endregion
 
     #region Methods
@@ -25,6 +28,14 @@ public class ColorObjectable : ScriptableObject
             return heroColor[0];
 
         return heroColor[grade - 1];
+    }
+
+    public Color GetHeroBoderColor(int level)
+    {
+        if (level > heroBoderColor.Count)
+            return heroBoderColor[0];
+
+        return heroBoderColor[level - 1];
     }
     #endregion
 }

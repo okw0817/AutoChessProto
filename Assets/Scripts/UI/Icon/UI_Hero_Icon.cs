@@ -23,6 +23,12 @@ public class UI_Hero_Icon : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private List<GameObject> activeObjects;
 
+    [SerializeField]
+    private Image backgroundImg;
+
+    [SerializeField]
+    private Image avatar_Icon;
+
     private bool isSale = false;
     #endregion
 
@@ -56,11 +62,12 @@ public class UI_Hero_Icon : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void SetSynergies(HeroData heroData)
+    public async void SetSynergies(HeroData heroData)
     {
 
         for(int i=0; i<heroData.synergies.Length; ++i)
         {
+            synergies[i].SetIcon(await ResourceManager.Instance.GetAddressablesSprite(heroData.synergies[i]+"_Icon"));
             synergies[i].gameObject.SetActive(true);
             synergies[i].SetSynergeName(heroData.synergies[i]);
             heroName.text = heroData.name;
@@ -70,6 +77,16 @@ public class UI_Hero_Icon : MonoBehaviour, IPointerClickHandler
     public void SetCost(int cost)
     {
         this.cost.text = cost.ToString();
+    }
+
+    public void SetbackgroundColor(Color color)
+    {
+        backgroundImg.color = color;
+    }
+
+    public void SetAvatarIcon(Sprite sprite)
+    {
+        avatar_Icon.sprite = sprite;
     }
 
     #endregion

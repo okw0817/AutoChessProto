@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using System;
 
 public class ResourceManager : ManagerBase<ResourceManager>
 {
@@ -11,6 +12,7 @@ public class ResourceManager : ManagerBase<ResourceManager>
     private Dictionary<int, ProbabilityData> ProbabilityData = new Dictionary<int, ProbabilityData>();
     private Dictionary<int, int> ExperienceData = new Dictionary<int, int>();
     private Dictionary<string, string> EffectDataDic = new Dictionary<string, string>();
+    private Dictionary<int, EnemyGrade[]> RoundDataDic = new Dictionary<int, EnemyGrade[]>();
     #endregion
 
     #region Members : Properties
@@ -22,12 +24,12 @@ public class ResourceManager : ManagerBase<ResourceManager>
     #region Methods : Override
     public override async void Init()
     {
-        base.Init();
-
         await Addressables.InitializeAsync();
-        await Addressables.LoadResourceLocationsAsync(AddressablesLabel.Hero.ToString());
-        await Addressables.LoadResourceLocationsAsync(AddressablesLabel.Projectile.ToString());
-        await Addressables.LoadResourceLocationsAsync(AddressablesLabel.Effect.ToString());
+        foreach(AddressablesLabel key in Enum.GetValues(typeof(AddressablesLabel)))
+        {
+            await Addressables.DownloadDependenciesAsync(key.ToString());
+        }
+
 
         //Characters
         var asset = Readfile(ResorucesName.CharactersProperties);
@@ -65,6 +67,17 @@ public class ResourceManager : ManagerBase<ResourceManager>
         {
             EffectDataDic.Add(effect.projectile, effect.effect);
         }
+
+        //rounds
+        asset = Readfile(ResorucesName.Rounds);
+        RoundContatiner roundContatiner = JsonUtility.FromJson<RoundContatiner>(asset.ToString());
+
+        foreach (var roundData in roundContatiner.rounds)
+        {
+            RoundDataDic.Add(roundData.round, roundData.enemies);
+        }
+
+        base.Init();
     }
     #endregion
 
@@ -86,11 +99,34 @@ public class ResourceManager : ManagerBase<ResourceManager>
     {
         return await Addressables.InstantiateAsync(AddressablesName);
     }
+    public async UniTask<Sprite> GetAddressablesSprite(string AddressablesName)
+    {
+        return await Addressables.LoadAssetAsync<Sprite>(AddressablesName);
+    }
 
     public string GetEffectName(string projectile)
     {
         if (EffectDataDic.ContainsKey(projectile))
             return EffectDataDic[projectile];
+
+        return null;
+    }
+
+    public EnemyGrade[] GetEnemies(int round)
+    {
+        if(!RoundDataDic.ContainsKey(round))
+            return null;
+
+        return RoundDataDic[round];
+    }
+
+    public HeroData GetHeroData(string heroName)
+    {
+        foreach(var hero in heroData)
+        {
+            if (hero.name == heroName)
+                return hero;
+        }
 
         return null;
     }

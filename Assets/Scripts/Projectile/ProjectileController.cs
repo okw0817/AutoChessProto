@@ -5,16 +5,16 @@ public class ProjectileController : MonoBehaviour
 {
     #region Members : Private
     Dictionary<string, List<Projectile>> projectile_Dic = new Dictionary<string, List<Projectile>>();
+    List<Projectile> deleteProjectile = new List<Projectile>();
+    List<Projectile> addProjectile = new List<Projectile>();
     #endregion
 
-
-    #region Methods : Public
-    public void AddProjectile(Projectile projectile)
+    #region Methods : Private
+    private void AddProjectileDic(Projectile projectile)
     {
         if (projectile_Dic.ContainsKey(projectile.ProjectileName))
         {
             projectile_Dic[projectile.ProjectileName].Add(projectile);
-
         }
         else
         {
@@ -23,7 +23,7 @@ public class ProjectileController : MonoBehaviour
         }
     }
 
-    public void DeleteProjectile(Projectile projectile)
+    private void DeleteProjectileDic(Projectile projectile)
     {
         if (projectile_Dic.ContainsKey(projectile.ProjectileName))
         {
@@ -32,6 +32,37 @@ public class ProjectileController : MonoBehaviour
             if (projectile_Dic[projectile.ProjectileName].Count == 0)
                 projectile_Dic.Remove(projectile.ProjectileName);
         }
+    }
+    #endregion
+
+    #region Methods : Public
+    public void AddProjectile(Projectile projectile)
+    {
+        addProjectile.Add(projectile);
+    }
+
+    public void DeleteProjectile(Projectile projectile)
+    {
+        deleteProjectile.Add(projectile);
+    }
+
+    public void UpdateProjectileList()
+    {
+        foreach(var projectile in addProjectile)
+        {
+            AddProjectileDic(projectile);
+        }
+
+        foreach (var projectile in deleteProjectile)
+        {
+            DeleteProjectileDic(projectile);
+        }
+
+        if(addProjectile.Count != 0)
+            addProjectile.Clear();
+
+        if (deleteProjectile.Count != 0)
+            deleteProjectile.Clear();
     }
 
     public void UpdateMove()

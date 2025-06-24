@@ -10,12 +10,12 @@ public enum UIPopupString { None, OneButton};
 public enum ReciverType { None, UIManager, SceneLoadManager}
 public enum SceneName { None, Init, Main}
 
-public enum CommandDataString { None, HeroList, Exe, AddSynergy, DeleteSynergy, SynergyCount }
-public enum CommandCallbackString { None, Callback, LevelUp }
+public enum CommandDataString { None, HeroList, Exe, AddSynergy, DeleteSynergy, SynergyCount, PlayButton }
+public enum CommandCallbackString { None, Callback, LevelUp, Refresh }
 #endregion
 
 #region DataType
-public enum UIDataType { None, Title, Content, Callback, Data, Exe, Level, Probability}
+public enum UIDataType { None, Title, Content, Callback, Data, Exe, Level, Probability, Money}
 #endregion
 
 #region CharacterAbillity
@@ -31,12 +31,14 @@ public static class ResorucesName
     public static readonly string RequireExperiences = "RequireExperiences";
     public static readonly string Synergy = "Synergy";
     public static readonly string ProjectileEffect = "Effects";
+    public static readonly string Rounds = "Rounds";
+    public static readonly string UI_HeroState = "UI_HeroState";
     #endregion
 }
 #endregion
 
 #region Addressabels
-public enum AddressablesLabel { None, Hero, Effect, Projectile }
+public enum AddressablesLabel { Hero, Particle, Projectile, UI, Icon }
 #endregion
 
 #region Tile

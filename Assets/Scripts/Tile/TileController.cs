@@ -8,6 +8,10 @@ public class TileController : MonoBehaviour
     private List<HorizontalTileContainer> allTiles = new List<HorizontalTileContainer>();
     #endregion
 
+    #region Members
+    public IEnumerator<HorizontalTileContainer> AllTiles { get => allTiles.GetEnumerator(); }
+    #endregion
+
     #region Methods : Mono
     void Start()
     {
@@ -39,13 +43,12 @@ public class TileController : MonoBehaviour
     #endregion
 
     #region Methods : Private
-
     #endregion
 
     #region Methods : Public
     public Tile GetTile(int horizontalIndex, int virticalIndex)
     {
-        if (virticalIndex < 0 || allTiles.Count < virticalIndex)
+        if (virticalIndex < 0 || allTiles.Count <= virticalIndex)
             return null;
 
         return allTiles[virticalIndex].GethorizontalTile(horizontalIndex);

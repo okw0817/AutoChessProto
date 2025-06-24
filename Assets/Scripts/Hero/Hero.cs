@@ -13,13 +13,20 @@ public class Hero : Character, IAttack, IAttacked, IMovable
     private int curGrade = 1;
 
     [SerializeField]
+    private Team heroTeam;
+
+    [SerializeField]
     private List<SynergyObjectable> synergyData;
 
     [SerializeField]
     private ColorObjectable colorData;
 
+    private Animator animator;
+
     [SerializeField]
     private SkinnedMeshRenderer meshRenderer;
+
+    private UI_HeroState ui_state;
 
     private Tile curTile;
     private Tile nextTile;
@@ -27,12 +34,18 @@ public class Hero : Character, IAttack, IAttacked, IMovable
     private bool isMoving;
     private bool isAttackWating;
     private float moveSpeed = 2.0f;
+
+    private int findCount;
     #endregion
 
     #region Members : Property
+
+    public bool IsMoving { get => isMoving; }
     public HeroData HeroData { get => heroData; }
     public Tile CurTile { get => curTile; set => curTile = value; }
     public Hero TargetHero { get => targetHero; set => targetHero = value; }
+
+    public UI_HeroState UI_HeroState { get => ui_state; set => ui_state = value; }
 
     public int CurGrade { 
         get => curGrade;
@@ -42,7 +55,14 @@ public class Hero : Character, IAttack, IAttacked, IMovable
             SetGradeState(curGrade);
         }
     }
-    public Team HeroTeam { get; set; }
+
+    public Team HeroTeam {
+        get => heroTeam; 
+        set {
+            heroTeam = value;
+        } }
+
+    public int FindCount { get => findCount; set => findCount = value; }
     #endregion
 
     #region Methods : Mono
@@ -60,18 +80,24 @@ public class Hero : Character, IAttack, IAttacked, IMovable
     {
         isMoving = false;
         isAttackWating = false;
-        
+
+        animator = GetComponentInChildren<Animator>(true);
+
         foreach (var synergy in synergyData)
         {
             synergy.Init();
         }
 
-        float rate = 1.0f;
-
-        if (curGrade == 2) rate = 1.5f;
-        else if (curGrade == 3) rate = 2.0f;
-
+        findCount = 0;
         base.Init();
+    }
+
+    public override void InitializeState()
+    {
+        base.InitializeState();
+
+        ui_state.SetMP(0.0f);
+        ui_state.SetHp(100.0f);
     }
     #endregion
 
@@ -85,7 +111,12 @@ public class Hero : Character, IAttack, IAttacked, IMovable
         if (isAttackWating)
             return;
 
+        animator.Play("Attack", -1, 0.0f);
+        animator.speed = 2.0f - cur_HeroState.attackSpeed;
+
         isAttackWating = true;
+        cur_HeroState.MP += cur_HeroState.gain_Attack_MP;
+        ui_state.SetMP((float)cur_HeroState.MP / (float)max_HeroState.MP);
 
         var chessMaster = AutoChessMaster.Instance;
         var obj = await chessMaster.GetPrefabInPool(heroData.projectile);
@@ -111,6 +142,7 @@ public class Hero : Character, IAttack, IAttacked, IMovable
             return;
 
         cur_HeroState.HP -= damage;
+        ui_state.SetHp((float)cur_HeroState.HP / (float)max_HeroState.HP);
 
         Debug.Log($"{heroData.name}: Attacked {damage}");
 
@@ -119,9 +151,18 @@ public class Hero : Character, IAttack, IAttacked, IMovable
 
     public void Die()
     {
-        AutoChessMaster.Instance.DeleteHero(this);
+        if(HeroTeam == Team.Enemy)
+            AutoChessMaster.Instance.DeleteHero(this);
+        else
+        {
+            AutoChessMaster.Instance.DieHero(this);
+        }
     }
 
+    public Color GetHeroBorderColor(int level)
+    {
+        return colorData.GetHeroBoderColor(level);
+    }
     #endregion
 
     #region Methods : public
@@ -181,10 +222,21 @@ public class Hero : Character, IAttack, IAttacked, IMovable
 
     public bool isArrive()
     {
+        if (targetHero == null || CurTile == null)
+            return true;
+
         int horizontalLenth = Mathf.Abs(targetHero.curTile.Index.Item1 - CurTile.Index.Item1);
         int vertiacalLenth = Mathf.Abs(targetHero.curTile.Index.Item2 - CurTile.Index.Item2);
 
         return (horizontalLenth + vertiacalLenth) <= cur_HeroState.AttackRange;
+    }
+
+    public void UpdateUITransform()
+    {
+        if (ui_state == null)
+            return;
+
+        ui_state.FollowHero(transform.position + new Vector3(0, 2f, 0.5f));
     }
     #endregion
 
@@ -227,7 +279,8 @@ public class Hero : Character, IAttack, IAttacked, IMovable
         var tile = chessMaster.GetTiltePosition((index.Item1 + HorizontalAmount, index.Item2 + VerticalAmount));
         if (tile.StandingHero != null)
         {
-            if(VerticalAmount != 0)
+            ++findCount;
+            if (VerticalAmount != 0)
             {
                 foreach(var amount in AmountArr)
                 {
@@ -236,9 +289,7 @@ public class Hero : Character, IAttack, IAttacked, IMovable
                     if (tile != null && tile.StandingHero == null)
                         return tile;
                 }
-            }
-
-            if (HorizontalAmount != 0)
+            }else if (HorizontalAmount != 0)
             {
                 foreach (var amount in AmountArr)
                 {

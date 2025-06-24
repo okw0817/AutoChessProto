@@ -32,6 +32,11 @@ public class UIBase : MonoBehaviour, IUIOpen, IUIClose, IInitializer, IDispose
     #region Methods : Virtual
     public virtual void SetData(Dictionary<string, object> data) { this.commandData = data; }
     public virtual void SetCallback(Dictionary<string, Action> callbacks) { this.callbacks = callbacks; }
+
+    public bool GetInit()
+    {
+        return true;
+    }
     #endregion
 
     #region Methods : Public
@@ -46,5 +51,6 @@ public class UIBase : MonoBehaviour, IUIOpen, IUIClose, IInitializer, IDispose
         if (text_content != null)
             text_content.text = content;
     }
+
     #endregion
 }

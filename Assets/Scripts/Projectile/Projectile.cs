@@ -91,8 +91,20 @@ public class Projectile : MonoBehaviour, IInitializer, IMovable
         string effectName = ResourceManager.Instance.GetEffectName(ProjectileName);
         var effect = await AutoChessMaster.Instance.GetPrefabInPool(effectName);
         effect.transform.position = target.transform.position;
-        effect.GetComponent<EffectBase>().PlayParticle();
+        effect.transform.rotation = Quaternion.RotateTowards(effect.transform.rotation, target.transform.rotation, 360.0f);
+        if (effect.TryGetComponent<EffectBase>(out EffectBase effectComp))
+        {
+            if(string.IsNullOrEmpty(effectComp.EffectName))
+                effectComp.EffectName = effectName;
+
+            effectComp.PlayParticle();
+        }
         this.target = null;
+    }
+
+    public bool GetInit()
+    {
+        return true;
     }
     #endregion
 }

@@ -20,6 +20,13 @@ public class UIPage_Store : UIPage
 
     private List<UI_Hero_Icon> heroIcons = new List<UI_Hero_Icon>();
 
+    [SerializeField]
+    private ColorObjectable colorData;
+
+    [SerializeField]
+    private Button playButton;
+
+    private int refreshCost = 2;
     #endregion
 
     #region Methods : Mono
@@ -80,6 +87,17 @@ public class UIPage_Store : UIPage
             uI_Panel_StoreInfo.SetSynergies(probability);
         }
 
+        if (data.ContainsKey(UIDataType.Money.ToString()))
+        {
+            var money = (int)data[UIDataType.Money.ToString()];
+            uI_Panel_StoreInfo.SetMoney(money);
+        }
+
+        if(data.ContainsKey(CommandDataString.PlayButton.ToString()))
+        {
+            var active = (bool)data[CommandDataString.PlayButton.ToString()];
+            playButton.gameObject.SetActive(active);
+        }
     }
 
     public override void SetCallback(Dictionary<string, Action> callbacks)
@@ -89,13 +107,13 @@ public class UIPage_Store : UIPage
         refreshBtn.onClick.RemoveAllListeners();
         refreshBtn.onClick.AddListener(() =>
         {
-            RefreshList();
+            RefreshList(refreshCost);
         });
 
         levelUpBtn.onClick.RemoveAllListeners();
         levelUpBtn.onClick.AddListener(() =>
         {
-            AutoChessMaster.Instance.RaiseExperience(2);
+            AutoChessMaster.Instance.RaiseExperience(2, 2);
         });
 
         string callbackKey = UIDataType.Callback.ToString();
@@ -103,12 +121,17 @@ public class UIPage_Store : UIPage
         {
             callbacks[callbackKey].Invoke();
         }
+
+        if (callbacks.ContainsKey(CommandCallbackString.Refresh.ToString()))
+        {
+            RefreshList(0);
+        }
     }
 
     #endregion
 
     #region Private : Methods
-    private void SetHeroData(List<HeroData> heroList)
+    private async void SetHeroData(List<HeroData> heroList)
     {
         foreach(var uiIcon in heroIcons)
         {
@@ -118,17 +141,20 @@ public class UIPage_Store : UIPage
 
         for(int i=0; i< heroList.Count; ++i)
         {
+            heroIcons[i].SetAvatarIcon(await ResourceManager.Instance.GetAddressablesSprite(heroList[i].icon));
             heroIcons[i].SetSynergies(heroList[i]);
             heroIcons[i].SetCost(heroList[i].level);
+            heroIcons[i].SetbackgroundColor(colorData.GetHeroBoderColor(heroList[i].level));
         }
     }
 
-    private void RefreshList()
+    private void RefreshList(int cost)
     {
-        if (AutoChessMaster.Instance == null)
+        var chessMaster = AutoChessMaster.Instance;
+        if (AutoChessMaster.Instance == null || chessMaster.Money < cost)
             return;
 
-        var chessMaster = AutoChessMaster.Instance;
+        chessMaster.Money -= refreshCost;
         var probabilities = chessMaster.GetProbabilityLevel(chessMaster.CurLevel);
         var list = chessMaster.GetStoreList(probabilities);
 

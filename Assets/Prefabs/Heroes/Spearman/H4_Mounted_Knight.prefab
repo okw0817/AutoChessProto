@@ -11240,7 +11240,7 @@ Animator:
   m_GameObject: {fileID: 158504}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: cf2f4f48c57855a4faee32e736b71983, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 447e6463d0259d84c9d79fc226c47d32, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -11264,6 +11264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charaterState: {fileID: 11400000, guid: c091d42fcd93a794fba4cafcb6bdecf4, type: 2}
+  curGrade: 1
   synergyData:
   - {fileID: 11400000, guid: 7f11f36025e7c7942aa33da5527ff2d1, type: 2}
   - {fileID: 11400000, guid: 5457381bd7e841348bd6c8d5d677a35c, type: 2}

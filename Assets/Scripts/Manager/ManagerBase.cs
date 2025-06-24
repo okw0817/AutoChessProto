@@ -41,5 +41,10 @@ public class ManagerBase<T> : MonoBehaviour, IInitializer where T : MonoBehaviou
     {
         isInit = true;
     }
+
+    public bool GetInit()
+    {
+        return isInit;
+    }
     #endregion
 }

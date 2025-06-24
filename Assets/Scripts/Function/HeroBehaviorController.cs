@@ -28,36 +28,55 @@ public class HeroBehaviorController
 
         foreach (var hero in heroes)
         {
-            if (hero.TargetHero == null || hero.TargetHero.IsDie())
-                hero.TargetHero = FindTarget(hero);
+            if (hero.TargetHero == null || hero.TargetHero.IsDie() || hero.FindCount > 2)
+            {
+                hero.FindCount = 0;
+                hero.TargetHero = FindTarget(hero, enemies);
+            }
             else
             {
-                if (!hero.isArrive())
+                if (!hero.isArrive() || hero.IsMoving)
                 {
                     hero.Move();
                 }
-                else
+                else if (hero.isArrive() && !hero.IsMoving)
                     hero.Attack(hero.TargetHero, hero.cur_HeroState.Damage);
             }
         }
 
+        foreach (var enemy in enemies)
+        {
+            if (enemy.TargetHero == null || enemy.TargetHero.IsDie())
+                enemy.TargetHero = FindTarget(enemy, heroes);
+            else
+            {
+                if (!enemy.isArrive())
+                {
+                    enemy.Move();
+                }
+                else
+                    enemy.Attack(enemy.TargetHero, enemy.cur_HeroState.Damage);
+            }
+        }
+
+        
     }
     #endregion
 
     #region Methods : Private
 
-    private Hero FindTarget(Hero hero)
+    private Hero FindTarget(Hero hero, List<Hero> targetList)
     {
         Hero minDistanceHero = null;
-        float minDistance = 9999;
+        float minDistance = float.MaxValue;
 
-        foreach (var enmey in enemies)
+        foreach (var target in targetList)
         {
-            float distance = Vector3.Distance(hero.transform.position, enmey.transform.position);
+            float distance = Vector3.Distance(hero.transform.position, target.transform.position);
             if (distance < minDistance)
             {
                 minDistance = distance;
-                minDistanceHero = enmey;
+                minDistanceHero = target;
             }
         }
 
