@@ -454,6 +454,13 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
         //roundController.AddDeadList(hero);
         hero.CurTile.StandingHero = null;
         hero.CurTile = null;
+        stageHeroList.Remove(hero);
+
+        if (hero.UI_HeroState != null)
+            heroUIController.PushPool(ResorucesName.UI_HeroState, hero.UI_HeroState.gameObject);
+
+        hero.UI_HeroState = null;
+
         hero.gameObject.SetActive(false);
     }
 
@@ -487,6 +494,22 @@ public class AutoChessMaster : SigletoneBase<AutoChessMaster>
     {
         if (hero.UI_HeroState != null)
             heroUIController.PushPool(ResorucesName.UI_HeroState, hero.UI_HeroState.gameObject);
+    }
+
+    public Tile[] GetTilesInRange(Tile originTile, int rowAmount, int  colAmount)
+    {
+        List<Tile> list = new List<Tile>();
+        for(int i = originTile.Index.Item2 - rowAmount;  i<=originTile.Index.Item2 + rowAmount; ++i)
+        {
+            for(int j = originTile.Index.Item1 - colAmount; j <= originTile.Index.Item1 + colAmount; ++j)
+            {
+                var tile = tileController.GetTile(j, i);
+                if (tile != null)
+                    list.Add(tile);
+            }
+        }
+
+        return list.ToArray();
     }
     #endregion
 }

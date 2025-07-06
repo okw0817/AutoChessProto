@@ -47,6 +47,36 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Projectile
+  - m_GUID: 6089289798b58b349b455d1ab4b1fda9
+    m_Address: Skill_Arrow_A
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Projectile
+  - m_GUID: 603ed47b67b02674d911eb0e0351d213
+    m_Address: Skill_Arrow_B
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Projectile
+  - m_GUID: 913ff009b1511de47ae7e03d5b226a16
+    m_Address: Skill_Club
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Projectile
+  - m_GUID: 2533f169245be0644a49f4df99804d37
+    m_Address: Skill_Hammer
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Projectile
+  - m_GUID: 186858d908e97884ba08810e934965eb
+    m_Address: Skill_Rock_A
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Projectile
+  - m_GUID: 94de965e44dba144887ca8e95c65f087
+    m_Address: Skill_Sword
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Projectile
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 8138524ce80a47446a65d259016c613a, type: 2}
   m_SchemaSet:

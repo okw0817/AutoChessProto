@@ -5,7 +5,15 @@
             "effect" : "Effect_Blood"
         },
         {
+            "projectile" : "Skill_Arrow_A",
+            "effect" : "Effect_Blood"
+        },
+        {
             "projectile" : "Arrow_B",
+            "effect" : "Effect_Blood"
+        },
+        {
+            "projectile" : "Skill_Arrow_B",
             "effect" : "Effect_Blood"
         },
         {
@@ -13,11 +21,23 @@
             "effect" : "Effect_Blood"
         },
         {
+            "projectile" : "Skill_Sword",
+            "effect" : "Effect_Blood"
+        },
+        {
             "projectile" : "Club",
             "effect" : "Effect_Blood2"
         },
         {
+            "projectile" : "Skill_Club",
+            "effect" : "Effect_Blood"
+        },
+        {
             "projectile" : "RockA",
+            "effect" : "Effect_Blood2"
+        },
+        {
+            "projectile" : "Skill_RockA",
             "effect" : "Effect_Blood2"
         },
         {
@@ -25,7 +45,15 @@
             "effect" : "Effect_Blood3"
         },
         {
+            "projectile" : "Skill_Hammer",
+            "effect" : "Effect_Blood3"
+        },
+        {
             "projectile" : "Rock_A",
+            "effect" : "Effect_Blood3"
+        },
+        {
+            "projectile" : "Skill_Rock_A",
             "effect" : "Effect_Blood3"
         }
     ]

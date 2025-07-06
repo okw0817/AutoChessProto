@@ -2,16 +2,18 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour, IInitializer, IMovable
 {
-    #region Members : Private
-    private string projectileName;
+    #region Members : Protected
+    protected string projectileName;
+    protected GameObject target;
+    #endregion
 
+    #region Members : Private
     [SerializeField]
     private AudioSource audioSource;
 
     private float moveSpeed = 3.0f;
     private float rotateSpeed = 360.0f;
 
-    private GameObject target;
     private float hitDistance = 0.5f;
     private (int, int) damage;
     #endregion
@@ -43,7 +45,6 @@ public class Projectile : MonoBehaviour, IInitializer, IMovable
 
     public async void ArriveToTarget()
     {
-        //ResourceManager.Instance.GetEffectName()
         var obj = await AutoChessMaster.Instance.GetPrefabInPool(name);
     }
     #endregion
@@ -80,17 +81,17 @@ public class Projectile : MonoBehaviour, IInitializer, IMovable
         this.damage.Item2 = magicDamage;
     }
 
-    public async void Hit(Hero target, (int, int) damage)
+    public virtual async void Hit(Hero target, (int, int) damage)
     {
         target.Attacked(damage.Item1);
-        target.Attacked(damage.Item2);
+        //target.Attacked(damage.Item2);
 
         AutoChessMaster.Instance.DeleteProjectile(this);
         AutoChessMaster.Instance.PushPrefabPool(projectileName, this.gameObject);
 
         string effectName = ResourceManager.Instance.GetEffectName(ProjectileName);
         var effect = await AutoChessMaster.Instance.GetPrefabInPool(effectName);
-        effect.transform.position = target.transform.position;
+        effect.transform.position = target.transform.position + new Vector3(0, 0.5f, 0);
         effect.transform.rotation = Quaternion.RotateTowards(effect.transform.rotation, target.transform.rotation, 360.0f);
         if (effect.TryGetComponent<EffectBase>(out EffectBase effectComp))
         {
