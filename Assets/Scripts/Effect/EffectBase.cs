@@ -37,7 +37,7 @@ public class EffectBase : MonoBehaviour
     public async virtual void PlayParticle()
     {
         cts = new CancellationTokenSource();
-        await UniTask.WaitForSeconds(particle.time, cancellationToken: cts.Token);
+        await UniTask.WaitForSeconds(particle.time + 0.5f, cancellationToken: cts.Token);
 
         AutoChessMaster.Instance.PushPrefabPool(effectName, this.gameObject);
     }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 
 [RequireComponent(typeof(Collider))]
-public class Hero : Character, IAttack, IAttacked, IMovable
+public class Hero : Character, IAttack, IAttacked, IMovable, ISkillAttack
 {
     #region Members : private
     private HeroData heroData;
@@ -111,29 +111,55 @@ public class Hero : Character, IAttack, IAttacked, IMovable
         if (isAttackWating)
             return;
 
-        animator.Play("Attack", -1, 0.0f);
-        animator.speed = 2.0f - cur_HeroState.attackSpeed;
+        if(cur_HeroState.MP >= max_HeroState.MP)
+        {
+            isAttackWating = true;
 
-        isAttackWating = true;
-        cur_HeroState.MP += cur_HeroState.gain_Attack_MP;
-        ui_state.SetMP((float)cur_HeroState.MP / (float)max_HeroState.MP);
+            animator.Play("Skill", -1, 0.0f);
+            animator.speed = 2.0f - cur_HeroState.attackSpeed;
 
-        var chessMaster = AutoChessMaster.Instance;
-        var obj = await chessMaster.GetPrefabInPool(heroData.projectile);
-        var projectile = obj.GetComponent<Projectile>();
-        projectile.Init();
-        projectile.Target = targetHero.gameObject;
-        projectile.SetDamage(cur_HeroState.Damage, cur_HeroState.MagicDamage);
-        projectile.transform.position = transform.position;
-        projectile.transform.LookAt(target.transform, Vector3.up);
-        projectile.ProjectileName = heroData.projectile;
-        chessMaster.AddProjectile(projectile);
+            cur_HeroState.MP = 0;
+            ui_state.SetMP((float)cur_HeroState.MP);
+
+            var chessMaster = AutoChessMaster.Instance;
+            var obj = await chessMaster.GetPrefabInPool("Skill_" + heroData.projectile);
+            var skillProjectile = obj.GetComponent<SkillProjectile>();
+
+            skillProjectile.Init();
+            skillProjectile.Target = targetHero.gameObject;
+            skillProjectile.SetDamage(cur_HeroState.Damage, cur_HeroState.MagicDamage);
+            skillProjectile.transform.position = transform.position;
+            skillProjectile.transform.LookAt(target.transform, Vector3.up);
+            skillProjectile.ProjectileName = heroData.projectile;
+            chessMaster.AddProjectile(skillProjectile);
+        }else{
+            animator.Play("Attack", -1, 0.0f);
+            animator.speed = 2.0f - cur_HeroState.attackSpeed;
+
+            isAttackWating = true;
+            cur_HeroState.MP += cur_HeroState.gain_Attack_MP;
+            ui_state.SetMP((float)cur_HeroState.MP / (float)max_HeroState.MP);
+
+            var chessMaster = AutoChessMaster.Instance;
+            var obj = await chessMaster.GetPrefabInPool(heroData.projectile);
+            var projectile = obj.GetComponent<Projectile>();
+            projectile.Init();
+            projectile.Target = targetHero.gameObject;
+            projectile.SetDamage(cur_HeroState.Damage, cur_HeroState.MagicDamage);
+            projectile.transform.position = transform.position;
+            projectile.transform.LookAt(target.transform, Vector3.up);
+            projectile.ProjectileName = heroData.projectile;
+            chessMaster.AddProjectile(projectile);
+
+            Debug.Log($"Attack : {heroData.name}");
+        }
 
         await UniTask.WaitForSeconds(cur_HeroState.attackSpeed);
         isAttackWating = false;
-
-        Debug.Log($"Attack : {heroData.name}");
-
+    }
+    public void SkillAttack()
+    {
+        throw new System.NotImplementedException();
     }
 
     public void Attacked(int damage)
